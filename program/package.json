@@ -1,0 +1,15 @@
+{
+  "name": "hearth-pass-program",
+  "private": true,
+  "scripts": { "test": "anchor test" },
+  "devDependencies": {
+    "@coral-xyz/anchor": "0.31.1",
+    "@solana/spl-token": "0.4.9",
+    "@types/chai": "4.3.11",
+    "@types/mocha": "10.0.6",
+    "chai": "4.4.1",
+    "mocha": "10.4.0",
+    "ts-mocha": "10.0.0",
+    "typescript": "5.4.5"
+  }
+}
