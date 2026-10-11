@@ -4,3 +4,6 @@ dist/
 target/
 .anchor/
 *.zip
+program/target/
+program/node_modules/
+program/test-ledger/

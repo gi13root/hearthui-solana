@@ -6,7 +6,7 @@
 
   var config = {
     // TODO(A3): replace with real program id after `anchor deploy` (see program/DEPLOY.md).
-    programId: 'HPass11111111111111111111111111111111111111',
+    programId: '4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA',
     usdcMint: '4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU',
     rpcUrl: 'https://api.devnet.solana.com',
     // Kill switch (plan M): set false and every `pass` sku is sold via direct `usdc`.

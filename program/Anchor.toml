@@ -6,11 +6,13 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-# TODO(A3): replace with `anchor keys list` output after first build.
-hearth_pass = "HPass11111111111111111111111111111111111111"
+hearth_pass = "4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA"
 
 [programs.localnet]
-hearth_pass = "HPass11111111111111111111111111111111111111"
+hearth_pass = "4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA"
+
+[registry]
+url = "https://api.apr.dev"
 
 [provider]
 cluster = "devnet"

@@ -82,15 +82,19 @@
   function focusPayload(session) {
     if (!session || (session.mode && session.mode !== 'focus')) return null;
     var sec = Number(session.durationSec) || 0;
-    if (sec < 60) return null;
-    return { minutes: Math.round(sec / 60), ended_at: new Date(session.endedAt || Date.now()).toISOString(),
-      season: 'focus_2026_10', source: 'hearthui-pomodoro' };
+    var minutes = Math.min(90, Math.round(sec / 60));
+    if (minutes < 5) return null; /* IPFPS accepts 5..90 */
+    var ended = Number(session.endedAt) || Date.now();
+    /* deterministic id => retries stay idempotent on the server */
+    var hex = ('000000000000' + ended.toString(16)).slice(-12);
+    return { session_id: '00000000-0000-4000-8000-' + hex, minutes: minutes,
+      started_at: new Date(ended - minutes * 60000).toISOString() };
   }
   function parseLeaderboard(json, limit) {
     var list = json && (json.entries || json.leaderboard || (Array.isArray(json) ? json : null));
     if (!Array.isArray(list)) return [];
     return list.map(function (e, i) {
-      return { rank: Number(e.rank) || i + 1, name: e.display || e.name || shortAddress(e.address || ''), minutes: Number(e.minutes) || 0 };
+      return { rank: Number(e.rank) || i + 1, name: e.nickname || e.display || e.name || shortAddress(e.address || ''), minutes: Number(e.minutes) || (e.score != null ? Math.round(Number(e.score) / 10) : 0) };
     }).sort(function (a, b) { return a.rank - b.rank; }).slice(0, limit || 5);
   }
   function escapeHtml(v) {

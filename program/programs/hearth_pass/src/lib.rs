@@ -5,7 +5,7 @@ use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token::{self, Mint, Token, TokenAccount, TransferChecked};
 
 // TODO(A3): replace with `anchor keys list` output before devnet deploy (program/DEPLOY.md).
-declare_id!("HPass11111111111111111111111111111111111111");
+declare_id!("4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA");
 
 /// USDC devnet mint (decimals 6). Under `--features localnet` a test mint whose
 /// keypair seed is public ([7u8; 32]) is used so tests can mint tokens.
@@ -17,7 +17,7 @@ pub const USDC_MINT: Pubkey = pubkey!("GmaDrppBC7P5ARKV8g3djiwP89vz1jLK23V2GBjuA
 /// Admin = only signer allowed to create themes; also the treasury wallet (5% fee).
 /// TODO(A3): set to the deployer wallet pubkey before devnet deploy.
 #[cfg(not(feature = "localnet"))]
-pub const ADMIN: Pubkey = pubkey!("2KW2XRd9kwqet15Aha2oK3tYvd3nWbTFH1MBiRAv1BE1");
+pub const ADMIN: Pubkey = pubkey!("7jhqV2NTmWJayyUFUKJ8Xv97EJovAEqACzqCLXXCGnoV");
 #[cfg(feature = "localnet")]
 pub const ADMIN: Pubkey = pubkey!("2KW2XRd9kwqet15Aha2oK3tYvd3nWbTFH1MBiRAv1BE1"); // seed [8u8; 32]
 

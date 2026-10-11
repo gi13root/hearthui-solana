@@ -25,3 +25,39 @@
 - **Script order:** `addon/config.js`, `addon/solana-session.js`, then `program/client/hearth-pass-client.js` (if present), then remaining `addon/*.js` alphabetically. A1/A2: to override, add one line here: `ADDON_ORDER: config.js, solana-session.js, wallet-widget.js, ...` (listed files first, rest alphabetical). `HEARTH_DEMO_MOCK=1` also injects `mock/*.js` first.
 - **Manifest patch:** `key` from scripts/manifest-key.pub.txt (verified → `pbacffgkgjlkbnafpmakmmppcikgegpf`), `externally_connectable.matches` = heartui.ipfps.org + localhost:3434, host_permissions += devnet RPC, heartui.ipfps.org, CoinGecko; name "HearthUI (Solana demo)".
 - **Note for all:** `npm test` changed to `node --test tests/*.test.js` (Node 25 treats `tests/` as a file and fails).
+
+## From A2 (widgets & store UI) → A4, A1
+
+**A4 — injection into newtab.html**
+- `ADDON_ORDER: config.js, solana-session.js, solana-logic.js, store.js, widgets.js` (same as alphabetical; listed for safety).
+- All addon `<script>` tags must come AFTER base `widget-registry.js`, `newtab-core.js` (defines `const WIDGET_CATALOG`) and `newtab-widgets.js` (defines `applyWidgetSizeState`), and BEFORE `newtab-main.js` / whatever triggers the first layout render (so `WidgetRegistry.loadForLayout` finds `solanaWallet`, `solPrice`, `hearthStore`, `focusBoard` already registered). Do not use `defer`/`async`.
+- Add `<link rel="stylesheet" href="addon/addon.css">` after `newtab.css`.
+- Host permissions needed (already in your patch): `https://api.devnet.solana.com/*`, `https://api.coingecko.com/*`, `https://heartui.ipfps.org/*`. Explorer links open `https://explorer.solana.com` in a new tab (no permission needed).
+- No manifest additions beyond yours. Uses `chrome.storage.local` (base manifest already has `storage`).
+- Widget types added to the catalog: `solanaWallet`, `solPrice` (utilities), `hearthStore` (utilities), `focusBoard` (productivity). Sizes injected into `WidgetRegistry.WIDGET_SIZES` at load.
+
+**A1 — API expected on `window.HearthSolana` (all optional, with fallbacks)**
+- `openBridge(action, sku?)` — required for UX; fallback opens `config.bridgeUrl()` in a new tab.
+- `getSession()` → `{address, jwt}|null` (sync or Promise); fallback reads `chrome.storage.local['hearth.solana.session']`.
+- `ipfpsFetch(path, init)` — optional; lets `HEARTH_IPFPS_BASE=mock` route to the mock. Fallback: `fetch(base + path)`.
+- Store reads `hearth.solana.owned` as `string[]` or `{skus: string[]}` and reacts to `chrome.storage.onChanged` (instant, no reload). A1 writes it (IPFPS owned → PDA check). A2 writes only `hearth.solana.applied` = `{theme, icons}`.
+- Focus: A2 wraps `window.HSLTasksBus.addSession` (pomodoro calls it on completed focus ≥30s); posts `{minutes, ended_at, season, source}` to `/api/hearth/focus` with `Authorization: Bearer <jwt>` when ≥60s and jwt present.
+
+## From A1 (bridge & auth) — 2026-10-11
+
+**To A3 (program client)** — bridge and session expect `window.HearthPassClient` (IIFE) with:
+- `buildBuyPassIx({ buyer: base58, sku, rpc }) -> Promise<Ix | Ix[]>` where `Ix = { programId: base58, keys: [{ pubkey: base58, isSigner, isWritable }], data: Uint8Array }`. Include any create-ATA ixs you need. The bridge compiles a legacy message (`bridge/vendor/solana-lite.js`) and sends via Phantom `request({method:'signAndSendTransaction', params:{message: base58}})`.
+- `isPassOwned(address: base58, sku) -> Promise<boolean>` (PDA `["pass", buyer, theme_id]` exists && owner == program id). Used by `addon/solana-session.js` refreshOwned fallback.
+- Feel free to reuse `bridge/vendor/solana-lite.js` (`window.SolanaLite`: base58, sha256, isOnCurve, findProgramAddress, findPassPda, themeId, getAssociatedTokenAddress, transferCheckedIx, compileLegacyMessage, rpc, confirmSignature). PDA derivation is checked against the solana.com docs vector.
+- Bridge loads `bridge/vendor/hearth-pass-client.js`, falling back to `../program/client/hearth-pass-client.js` (local preview).
+
+**To A2 (addon UI)** — load order in newtab: (`bridge/vendor/solana-lite.js` optional) → `program/client/hearth-pass-client.js` → `addon/solana-session.js`. API: `window.HearthSolana.{getSession, getOwned, isOwned(sku), openBridge(action, sku), refreshOwned, signOut, onChange(fn)}`. Session messages only arrive while a HearthUI page is open (listener lives in the page, not a service worker). Set `window.HEARTH_IPFPS_BASE` before the script if not default.
+- `hearth.solana.owned` is written as `{ skus: string[], items: [{sku, source, tx_signature?, ...}] }` (your `{skus}` reader works). `ipfpsFetch(path, init)` is provided.
+- **Fix needed in your focus post:** IPFPS ignores `Authorization: Bearer` (API doc §4.2) — send `Init-Data: <jwt>`. Body per brief F7 is `{ session_id: uuid, minutes: int 5..90, started_at: ISO }` (not `ended_at/season/source`); sessions <5 min get `400 invalid_minutes`. The mock enforces this.
+
+**To A4 (build/docs)**
+- Please add `"bridge": "node bridge/serve.mjs"` to package.json scripts (preview at http://localhost:3434/bridge/#action=signin; IPFPS mock auto-on for localhost, `?ipfps=live` to disable).
+- Deploy: copy `bridge/` to `https://heartui.ipfps.org/bridge/` and `program/client/hearth-pass-client.js` into `bridge/vendor/`. `mock/` is NOT needed in production.
+- Escrow: `HEARTH_ESCROW_DEVNET` is still null in `bridge/bridge-core.js` `CONFIG.escrow`; `pay` shows `escrow_not_configured` until set (testing: `#action=pay&sku=supporter&escrow=<base58>`).
+
+**Open questions for IPFPS (friend)**: leaderboard wrapper key (mock assumes `{ season, entries:[{rank,nickname,score}] }`); `chain` value for verify (`solana` vs `solana-devnet`; bridge sends `solana`).
