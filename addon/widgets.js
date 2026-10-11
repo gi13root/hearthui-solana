@@ -140,7 +140,7 @@
     return readSession().then(function (s) {
       if (!s || !s.jwt) return false;
       return ipfpsFetch('/api/hearth/focus', { method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + s.jwt }, body: JSON.stringify(payload) })
+        headers: { 'Content-Type': 'application/json', 'Init-Data': s.jwt }, body: JSON.stringify(payload) })
         .then(function (r) { sessionListeners.forEach(function (fn) { fn(); }); return r.ok; });
     }).catch(function (e) { console.warn('[hearth-focus]', e); return false; });
   }
