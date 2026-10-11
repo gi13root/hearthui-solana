@@ -1,0 +1,44 @@
+/* HearthUI x Solana addon: widget styles + purchasable themes (aurora, dune) + glass icon pack.
+   Uses HearthUI tokens (--acc, --w92/--w70/--w45/--w25, --mono) with literal fallbacks. */
+.hs-widget{height:100%;box-sizing:border-box;padding:12px;display:flex;flex-direction:column;gap:8px;color:var(--w92,#eef);font-variant-numeric:tabular-nums}
+.hs-center{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center}
+.hs-hero{font-weight:700;line-height:1;letter-spacing:-.02em;font-family:var(--mono,ui-monospace,monospace);white-space:nowrap}
+.hs-glyph{line-height:1;color:var(--acc,#6aa8ff)}
+.hs-label{font:600 11px/1.3 var(--mono,ui-monospace,monospace);letter-spacing:.06em;text-transform:uppercase;color:var(--w45,rgba(255,255,255,.55))}
+.hs-sub{display:flex;gap:12px;font-size:12px;color:var(--w70,rgba(255,255,255,.75))}
+.hs-addr,.hs-mono{font-family:var(--mono,ui-monospace,monospace)}
+.hs-head{display:flex;justify-content:space-between;font:700 11px var(--mono,ui-monospace,monospace);letter-spacing:.06em;text-transform:uppercase;color:var(--w45,rgba(255,255,255,.55))}
+.hs-acc{color:var(--acc,#6aa8ff)}
+.hs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;min-height:0;flex:1 1 auto}
+.hs-row{display:flex;align-items:center;gap:8px;font-size:12px;min-height:28px}
+.hs-row-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.hs-row-main small{color:var(--w45,rgba(255,255,255,.55));font-size:11px}
+.hs-row a{color:inherit;text-decoration:none;flex:1}
+.hs-time,.hs-rank{color:var(--w45,rgba(255,255,255,.55));font-family:var(--mono,ui-monospace,monospace)}
+.hs-dot{width:8px;height:8px;border-radius:50%;background:#3ecf8e}.hs-dot.bad{background:#ff6b6b}
+.hs-up{color:#3ecf8e}.hs-down{color:#ff6b6b}.hs-err{color:#ffb3b3;text-transform:none}
+.hs-btn{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:inherit;border-radius:8px;padding:4px 10px;font:600 12px/1.4 inherit;cursor:pointer;white-space:nowrap}
+.hs-btn:hover{background:rgba(255,255,255,.16)}.hs-btn:focus-visible{outline:2px solid var(--acc,#6aa8ff);outline-offset:2px}
+.hs-primary,.hs-btn.hs-on{background:var(--acc,#6aa8ff);border-color:transparent;color:#fff}
+.hs-pill,.hs-badge{font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(255,200,80,.18);color:#ffd27a}
+.hs-lock{font-size:11px;opacity:.6}
+.hs-row.is-locked .hs-row-main{opacity:.75}
+.hs-swatch{width:20px;height:20px;border-radius:6px;flex:0 0 auto;background:rgba(255,255,255,.1)}
+.hs-sw-theme_aurora{background:linear-gradient(135deg,#0b1d3a,#1fd1a5 55%,#8a5cff)}
+.hs-sw-theme_dune{background:linear-gradient(135deg,#3b1f12,#d9894a 55%,#f4d29c)}
+.hs-sw-icons_glass{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5)}
+.hs-sw-supporter{background:radial-gradient(circle,#ffd27a,#c7861d)}
+.hs-skel{border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,.14),rgba(255,255,255,.06));background-size:200% 100%;animation:hs-shimmer 1.2s linear infinite}
+@keyframes hs-shimmer{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.hs-skel{animation:none}}
+
+/* Themes (owned only; class set on <html> by addon/store.js). !important beats the inline accent set by HearthUI. */
+#hs-theme-layer{position:fixed;inset:0;pointer-events:none;z-index:0;mix-blend-mode:soft-light;opacity:.7}
+html.hs-theme-aurora{--acc:oklch(78% 0.15 170)!important;--acc-glow:oklch(78% 0.15 170 / .35)!important;--acc-dim:oklch(78% 0.15 170 / .13)!important}
+html.hs-theme-aurora #hs-theme-layer{background:radial-gradient(120% 70% at 20% 0%,#1fd1a5 0%,transparent 55%),radial-gradient(90% 60% at 85% 10%,#8a5cff 0%,transparent 60%),linear-gradient(#071226,#0b1d3a)}
+html.hs-theme-dune{--acc:oklch(74% 0.13 60)!important;--acc-glow:oklch(74% 0.13 60 / .35)!important;--acc-dim:oklch(74% 0.13 60 / .13)!important}
+html.hs-theme-dune #hs-theme-layer{background:radial-gradient(110% 60% at 70% 100%,#f4d29c 0%,transparent 60%),linear-gradient(180deg,#3b1f12,#d9894a)}
+/* Glass icon pack: frosted tiles for dock + app grid icons. */
+html.hs-icons-glass #dock img,html.hs-icons-glass #dock [class*="icon"],html.hs-icons-glass .appgrid [class*="icon"]{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);border-radius:22%;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+/* Supporter badge: small star next to the clock area / store header. */
+html.hs-supporter body::after{content:"\2605 Supporter";position:fixed;right:16px;bottom:12px;z-index:5;font:600 11px var(--mono,ui-monospace,monospace);padding:3px 10px;border-radius:999px;background:rgba(255,200,80,.18);color:#ffd27a;pointer-events:none}
