@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HearthUI Wallet Bridge</title>
+  <link rel="stylesheet" href="bridge.css">
+</head>
+<body>
+  <main class="card" aria-live="polite">
+    <header>
+      <div class="mark" aria-hidden="true"></div>
+      <div>
+        <h1 id="title">HearthUI</h1>
+        <p class="sub" id="subtitle">Wallet bridge · Solana devnet</p>
+      </div>
+    </header>
+    <section id="summary" class="summary" hidden></section>
+    <ol id="steps" class="steps"></ol>
+    <p id="status" class="status">Loading…</p>
+    <div class="actions">
+      <button id="go" type="button" disabled>Connect Phantom</button>
+      <a id="explorer" class="link" target="_blank" rel="noopener" hidden>View on Solana Explorer</a>
+    </div>
+    <p id="env" class="env"></p>
+  </main>
+  <script src="vendor/solana-lite.js"></script>
+  <script src="bridge-core.js"></script>
+  <script src="bridge.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+:root { --bg:#f4f1ec; --card:#fffdf9; --ink:#1d1b18; --muted:#6b655c; --line:#e4ddd2; --accent:#d9682b; --ok:#2f7d4f; --err:#b3261e; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#141210; --card:#1e1b18; --ink:#f3eee6; --muted:#a39b8f; --line:#332e28; --accent:#f08a4b; --ok:#5bbf86; --err:#ff8a80; } }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; display:grid; place-items:center; padding:16px; background:var(--bg); color:var(--ink); font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; }
+.card { width:100%; max-width:420px; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:24px; box-shadow:0 10px 40px rgba(0,0,0,.08); }
+header { display:flex; gap:12px; align-items:center; margin-bottom:16px; }
+.mark { width:40px; height:40px; border-radius:12px; background:radial-gradient(circle at 30% 30%, #ffb07a, var(--accent)); }
+h1 { margin:0; font-size:18px; } .sub { margin:0; color:var(--muted); font-size:13px; }
+.summary { border:1px solid var(--line); border-radius:12px; padding:12px; margin-bottom:16px; display:flex; justify-content:space-between; gap:8px; }
+.summary b { font-variant-numeric: tabular-nums; }
+.steps { list-style:none; margin:0 0 12px; padding:0; display:grid; gap:8px; }
+.steps li { display:flex; gap:8px; align-items:center; color:var(--muted); }
+.steps li::before { content:""; width:10px; height:10px; border-radius:50%; border:2px solid var(--line); flex:none; }
+.steps li.active { color:var(--ink); } .steps li.active::before { border-color:var(--accent); }
+.steps li.done::before { background:var(--ok); border-color:var(--ok); }
+.steps li.fail { color:var(--err); } .steps li.fail::before { background:var(--err); border-color:var(--err); }
+.status { min-height:1.45em; margin:0 0 16px; overflow-wrap:anywhere; } .status.err { color:var(--err); } .status.ok { color:var(--ok); }
+.actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+button { font:inherit; font-weight:600; border:0; border-radius:12px; padding:12px 18px; background:var(--accent); color:#fff; cursor:pointer; }
+button:disabled { opacity:.5; cursor:default; } button:focus-visible, .link:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.link { color:var(--accent); } .env { margin:16px 0 0; color:var(--muted); font-size:12px; }
