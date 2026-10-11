@@ -1,0 +1,5 @@
+{
+  "name": "hearthui-solana",
+  "private": true,
+  "scripts": { "test": "node --test tests/" }
+}
