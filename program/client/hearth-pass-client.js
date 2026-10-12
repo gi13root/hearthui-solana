@@ -9,6 +9,7 @@
     programId: '4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA',
     usdcMint: '4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU',
     rpcUrl: 'https://api.devnet.solana.com',
+    treasury: '7jhqV2NTmWJayyUFUKJ8Xv97EJovAEqACzqCLXXCGnoV', // ADMIN in lib.rs (devnet deployer)
     // Kill switch (plan M): set false and every `pass` sku is sold via direct `usdc`.
     passEnabled: true,
     passSkus: ['theme_aurora', 'theme_dune', 'icons_glass'],
@@ -187,6 +188,24 @@
     return config.passEnabled && config.passSkus.indexOf(sku) >= 0 ? 'pass' : 'usdc';
   }
   function configure(o) { for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) config[k] = o[k]; return config; }
+
+  /** Theme account: 8-byte discriminator, then creator Pubkey. */
+  async function fetchThemeCreator(rpc, sku) {
+    var pda = (await deriveThemePda(sku))[0];
+    var res = await rpcCall(rpc, 'getAccountInfo', [pda, { encoding: 'base64', commitment: 'confirmed' }]);
+    var acc = res && res.value;
+    if (!acc || acc.owner !== config.programId) throw Object.assign(new Error('theme_not_found: ' + sku), { code: 'theme_not_found' });
+    return base58Encode(b64(acc.data[0]).slice(8, 40));
+  }
+
+  // Interface the bridge and the extension session expect (see docs/CONTRACT.md handoffs).
+  root.HearthPassClient = {
+    buildBuyPassIx: async function (o) {
+      var creator = await fetchThemeCreator(o.rpc, o.sku);
+      return buildBuyPassInstruction({ buyer: o.buyer, sku: o.sku, creator: creator, treasury: config.treasury });
+    },
+    isPassOwned: function (address, sku) { return isOwned(config.rpcUrl, address, sku); },
+  };
 
   root.HearthPass = {
     config: config, configure: configure, methodFor: methodFor,
