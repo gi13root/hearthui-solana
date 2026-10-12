@@ -153,6 +153,14 @@
     return concat([compactU16(signatures.length)].concat(signatures).concat([message]));
   }
 
+  // Unsigned wire transaction: one zeroed 64-byte slot per required signer (header byte 0), then the message.
+  // Wallet request APIs (Phantom signAndSendTransaction) expect this, not the bare message.
+  function unsignedTransaction(message) {
+    var n = message[0], sigs = [];
+    for (var i = 0; i < n; i++) sigs.push(new Uint8Array(64));
+    return serializeTransaction(message, sigs);
+  }
+
   async function rpc(url, method, params, fetchImpl) {
     var f = fetchImpl || root.fetch.bind(root);
     var r = await f(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: method, params: params }) });
@@ -174,7 +182,7 @@
   var api = { base58Encode: b58enc, base58Decode: base58Decode, isPubkey: isPubkey, sha256: sha256, isOnCurve: isOnCurve,
     createProgramAddress: createProgramAddress, findProgramAddress: findProgramAddress, getAssociatedTokenAddress: getAssociatedTokenAddress,
     themeId: themeId, findPassPda: findPassPda, u64le: u64le, transferCheckedIx: transferCheckedIx, createAtaIdempotentIx: createAtaIdempotentIx,
-    compactU16: compactU16, compileLegacyMessage: compileLegacyMessage, serializeTransaction: serializeTransaction, rpc: rpc, confirmSignature: confirmSignature,
+    compactU16: compactU16, compileLegacyMessage: compileLegacyMessage, serializeTransaction: serializeTransaction, unsignedTransaction: unsignedTransaction, rpc: rpc, confirmSignature: confirmSignature,
     TOKEN_PROGRAM_ID: TOKEN_PROGRAM_ID, ATA_PROGRAM_ID: ATA_PROGRAM_ID, SYSTEM_PROGRAM_ID: SYSTEM_PROGRAM_ID, USDC_DEVNET_MINT: USDC_DEVNET_MINT };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.SolanaLite = api;
 })(typeof window !== 'undefined' ? window : globalThis);

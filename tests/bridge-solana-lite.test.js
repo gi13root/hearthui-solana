@@ -98,3 +98,13 @@ test('PDA known vector from solana.com docs (seed "helloWorld", system program)'
   assert.equal(addr, '46GZzzetjCURsdFPb7rcnspbEMnCBXe9kpjrsZAkKb6X');
   assert.equal(bump, 254);
 });
+
+test('unsignedTransaction wraps a legacy message with empty signature slots (Phantom request format)', () => {
+  const SLx = require('../bridge/vendor/solana-lite.js');
+  const msg = new Uint8Array([1, 0, 5, 9, 9, 9]);
+  const tx = SLx.unsignedTransaction(msg);
+  assert.strictEqual(tx.length, 1 + 64 + msg.length);
+  assert.strictEqual(tx[0], 1);
+  assert.ok(tx.slice(1, 65).every((b) => b === 0));
+  assert.deepStrictEqual([...tx.slice(65)], [...msg]);
+});

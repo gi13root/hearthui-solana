@@ -81,8 +81,8 @@
   async function sendTx(ixs) {
     var bh = await SL.rpc(CFG.rpc, 'getLatestBlockhash', [{ commitment: 'confirmed' }]);
     var msg = SL.compileLegacyMessage({ payer: state.address, recentBlockhash: bh.value.blockhash, instructions: ixs });
-    // Phantom request API accepts a base58 serialized legacy message (no web3.js needed).
-    var r = await provider().request({ method: 'signAndSendTransaction', params: { message: SL.base58Encode(msg) } });
+    // Phantom request API expects a base58 serialized (unsigned) transaction, not the bare message.
+    var r = await provider().request({ method: 'signAndSendTransaction', params: { message: SL.base58Encode(SL.unsignedTransaction(msg)) } });
     var sig = r && (r.signature || r);
     if (typeof sig !== 'string') throw Object.assign(new Error('Wallet returned no signature'), { code: 'no_signature' });
     return sig;
