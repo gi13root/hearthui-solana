@@ -88,3 +88,12 @@ test('makeZip produces a valid archive with stored names and CRC', async () => {
   assert.strictEqual(zlib.inflateRawSync(raw).toString(), 'hello hello hello');
   assert.strictEqual(buf.readUInt32LE(14), zlib.crc32(Buffer.from('hello hello hello')));
 });
+
+test('injectStyles adds addon css before </head> once', async () => {
+  const { injectStyles } = await import('../scripts/build-demo.mjs');
+  const html = '<html><head><link rel="stylesheet" href="newtab.css"/></head><body></body></html>';
+  const once = injectStyles(html, ['addon/addon.css']);
+  assert.ok(once.indexOf('addon/addon.css') > once.indexOf('newtab.css'));
+  assert.ok(once.indexOf('addon/addon.css') < once.indexOf('</head>'));
+  assert.strictEqual(injectStyles(once, ['addon/addon.css']), once);
+});

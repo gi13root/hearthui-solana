@@ -58,6 +58,15 @@ export function injectScripts(html, srcs) {
   return html.slice(0, i) + '  <!-- hearthui-solana addon (demo build only) -->\n' + tags + html.slice(i);
 }
 
+/** Adds <link rel=stylesheet> tags before </head>; skips ones already present. */
+export function injectStyles(html, hrefs) {
+  const i = html.indexOf('</head>');
+  if (i === -1) throw new Error('injectStyles: no </head> in newtab.html');
+  const tags = hrefs.filter((h) => !html.includes(`href="${h}"`))
+    .map((h) => `  <link rel="stylesheet" href="${h}"/>\n`).join('');
+  return tags ? html.slice(0, i) + tags + html.slice(i) : html;
+}
+
 /** Minimal deflate zip writer. entries: [{name, data: Buffer}] */
 export function makeZip(entries) {
   const locals = [], centrals = [];
@@ -150,7 +159,9 @@ function main() {
   }
   if (!addonFiles.length) console.warn('  ! addon/ has no .js files yet — demo is the plain base build');
   const htmlPath = path.join(out, 'newtab.html');
-  fs.writeFileSync(htmlPath, injectScripts(fs.readFileSync(htmlPath, 'utf8'), srcs));
+  const styles = fs.readdirSync(path.join(ROOT, 'addon')).filter((f) => f.endsWith('.css')).sort().map((f) => 'addon/' + f);
+  fs.writeFileSync(htmlPath, injectStyles(injectScripts(fs.readFileSync(htmlPath, 'utf8'), srcs), styles));
+  console.log(`  ✓ styles injected: ${styles.join(', ') || '(none)'}`);
 
   const manPath = path.join(out, 'manifest.json');
   const patched = patchManifest(JSON.parse(fs.readFileSync(manPath, 'utf8')), { key });
