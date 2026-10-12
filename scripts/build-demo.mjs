@@ -160,6 +160,14 @@ function main() {
   if (!addonFiles.length) console.warn('  ! addon/ has no .js files yet — demo is the plain base build');
   const htmlPath = path.join(out, 'newtab.html');
   const styles = fs.readdirSync(path.join(ROOT, 'addon')).filter((f) => f.endsWith('.css')).sort().map((f) => 'addon/' + f);
+  // Optional demo flags (e.g. local bridge before heartui.ipfps.org hosts it): HEARTH_FLAGS='{"HEARTH_BRIDGE_URL":"http://localhost:3434/bridge/"}'
+  if (process.env.HEARTH_FLAGS) {
+    const flags = JSON.parse(process.env.HEARTH_FLAGS);
+    fs.mkdirSync(path.join(out, 'addon'), { recursive: true });
+    fs.writeFileSync(path.join(out, 'addon/flags.js'), 'window.HEARTH_FLAGS = ' + JSON.stringify(flags) + ';\n');
+    srcs.unshift('addon/flags.js');
+    console.log('  ✓ demo flags: ' + JSON.stringify(flags));
+  }
   fs.writeFileSync(htmlPath, injectStyles(injectScripts(fs.readFileSync(htmlPath, 'utf8'), srcs), styles));
   console.log(`  ✓ styles injected: ${styles.join(', ') || '(none)'}`);
 

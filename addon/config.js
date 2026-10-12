@@ -12,7 +12,7 @@
     EXT_ID: 'pbacffgkgjlkbnafpmakmmppcikgegpf',
     HEARTH_IPFPS_BASE: IPFPS_BASE,
     HEARTH_ESCROW_DEVNET: 'HEARTH_ESCROW_DEVNET', // placeholder until friend confirms
-    BRIDGE_URL: 'https://heartui.ipfps.org/bridge/',
+    BRIDGE_URL: flags.HEARTH_BRIDGE_URL || 'https://heartui.ipfps.org/bridge/',
     PRICE_URL: 'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true',
     PRICE_TTL_MS: 60000,
     WALLET_TTL_MS: 30000,

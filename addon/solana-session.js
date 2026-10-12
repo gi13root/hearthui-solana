@@ -69,7 +69,7 @@
     function openBridge(action, sku) {
       if (['signin', 'pay', 'buy'].indexOf(action) < 0) throw new Error('bad action');
       if (action !== 'signin' && !SKU_METHOD[sku]) throw new Error('bad sku');
-      var url = (root.HEARTH_BRIDGE_URL || BRIDGE_URL) + '#action=' + action + (action === 'signin' ? '' : '&sku=' + encodeURIComponent(sku));
+      var url = (root.HEARTH_BRIDGE_URL || (root.HEARTH_FLAGS && root.HEARTH_FLAGS.HEARTH_BRIDGE_URL) || BRIDGE_URL) + '#action=' + action + (action === 'signin' ? '' : '&sku=' + encodeURIComponent(sku));
       openTab(url); return url;
     }
 
