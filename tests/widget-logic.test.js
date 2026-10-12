@@ -74,3 +74,12 @@ test('size family + scale (aw rules)', () => {
   assert.strictEqual(L.heroPx(6, 6), 130);
   assert.strictEqual(L.heroPx(0, 0), 28);
 });
+
+test('fitHero shrinks the hero so the text fits the card width (aw §15), never grows it', () => {
+  const L2 = require('../addon/solana-logic.js');
+  assert.strictEqual(L2.fitHero(50, 400, '$111.39'), 50);            // roomy: keep §14 size
+  const px = L2.fitHero(130, 180, '$111.39');                         // narrow card: shrink
+  assert.ok(px < 130 && px * 0.62 * 7 <= 180 * 0.88 + 0.5, String(px));
+  assert.strictEqual(L2.fitHero(130, 0, '$1'), 130);                  // unknown width: no change
+  assert.strictEqual(L2.fitHero(40, 20, '$99999.99'), 16);            // floor: readable minimum
+});

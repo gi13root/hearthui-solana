@@ -79,6 +79,12 @@
   }
   /* aw §14: clamp(28, cols*18 + rows*14, 130) */
   function heroPx(cols, rows) { return Math.max(28, Math.min(130, cols * 18 + rows * 14)); }
+  /* aw §15: monospace glyph ~0.62em; keep 12% side padding; never upscale past §14 size */
+  function fitHero(px, widthPx, text) {
+    if (!widthPx) return px;
+    var fit = Math.floor((widthPx * 0.88) / (0.62 * String(text).length));
+    return Math.max(16, Math.min(px, fit));
+  }
   function focusPayload(session) {
     if (!session || (session.mode && session.mode !== 'focus')) return null;
     var sec = Number(session.durationSec) || 0;
@@ -106,7 +112,7 @@
     shortAddress: shortAddress, parseBalance: parseBalance, parseTokenBalance: parseTokenBalance,
     parseSignatures: parseSignatures, relTime: relTime, parsePrice: parsePrice, cacheFresh: cacheFresh,
     normalizeOwned: normalizeOwned, storeItems: storeItems, bridgeActionFor: bridgeActionFor, canApply: canApply,
-    family: family, heroPx: heroPx, focusPayload: focusPayload, parseLeaderboard: parseLeaderboard, escapeHtml: escapeHtml };
+    family: family, heroPx: heroPx, fitHero: fitHero, focusPayload: focusPayload, parseLeaderboard: parseLeaderboard, escapeHtml: escapeHtml };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (root) root.HearthSolanaLogic = api;
 })(typeof window !== 'undefined' ? window : null);

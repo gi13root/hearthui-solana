@@ -86,7 +86,7 @@
         el.querySelector('.hs-connect').addEventListener('click', function () { openBridge('signin'); });
         return;
       }
-      var d = ctx.data, html = '<div class="hs-center hs-wallet-main"><div class="hs-hero" style="font-size:' + hero + 'px">' + L.formatSol(d.sol) +
+      var d = ctx.data, html = '<div class="hs-center hs-wallet-main"><div class="hs-hero" style="font-size:' + L.fitHero(hero, el.clientWidth, L.formatSol(d.sol)) + 'px">' + L.formatSol(d.sol) +
         '</div><div class="hs-label">SOL' + (fam === 'small' ? '' : ' · devnet') + '</div>';
       if (fam !== 'small') html += '<div class="hs-sub"><span>' + L.formatSol(d.usdc) + ' USDC</span><span class="hs-addr" title="' + esc(d.address) + '">' + esc(L.shortAddress(d.address)) + '</span></div>';
       html += '</div>';
@@ -123,8 +123,9 @@
       var el = ctx.el, fam = L.family(ctx.cols, ctx.rows), hero = L.heroPx(ctx.cols, ctx.rows);
       var sv = stateView(ctx, 'SOL');
       if (sv) { el.innerHTML = sv; wireRetry(ctx); return; }
-      var p = ctx.data, ch = p.change24h;
-      el.innerHTML = '<div class="hs-center"><div class="hs-hero" style="font-size:' + hero + 'px">' + L.formatUsd(p.usd) + '</div>' +
+      var p = ctx.data, ch = p.change24h, priceText = L.formatUsd(p.usd);
+      hero = L.fitHero(hero, el.clientWidth, priceText);
+      el.innerHTML = '<div class="hs-center"><div class="hs-hero" style="font-size:' + hero + 'px">' + priceText + '</div>' +
         '<div class="hs-label">SOL' + (ch == null ? '' : ' <span class="' + (ch < 0 ? 'hs-down' : 'hs-up') + '">' + L.formatPct(ch) + '</span>') + '</div>' +
         (fam === 'small' ? '' : '<div class="hs-sub"><span>24h change</span><span>' + (ctx.stale ? 'cached' : 'live') + ' · CoinGecko</span></div>') + '</div>';
     }, { every: C.PRICE_TTL_MS, load: function (ctx) {
@@ -165,7 +166,7 @@
       var rows = ctx.data || [];
       if (!rows.length) { el.innerHTML = '<div class="hs-center"><div class="hs-glyph" style="font-size:' + Math.round(hero * 0.6) + 'px">◐</div><div class="hs-label">Finish a pomodoro to rank</div></div>'; return; }
       if (fam === 'small') {
-        el.innerHTML = '<div class="hs-center"><div class="hs-hero" style="font-size:' + hero + 'px">' + rows[0].minutes + 'm</div><div class="hs-label">#1 ' + esc(rows[0].name) + '</div></div>';
+        el.innerHTML = '<div class="hs-center"><div class="hs-hero" style="font-size:' + L.fitHero(hero, el.clientWidth, rows[0].minutes + 'm') + 'px">' + rows[0].minutes + 'm</div><div class="hs-label">#1 ' + esc(rows[0].name) + '</div></div>';
         return;
       }
       el.innerHTML = '<div class="hs-head"><span>Focus · Oct</span></div><ol class="hs-list">' + rows.slice(0, fam === 'large' ? 5 : 3).map(function (r) {
