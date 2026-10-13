@@ -5,7 +5,7 @@
 (function (root) {
   'use strict';
   var SESSION_KEY = 'hearth.solana.session', OWNED_KEY = 'hearth.solana.owned';
-  var ALLOWED_ORIGINS = ['https://heartui.ipfps.org', 'http://localhost:3434'];
+  var ALLOWED_ORIGINS = ['https://heartui.ipfps.org', 'http://localhost:3434', 'https://gi13root.github.io'];
   var BRIDGE_URL = 'https://heartui.ipfps.org/bridge/';
   var SKU_METHOD = { supporter: 'usdc', theme_aurora: 'pass', theme_dune: 'pass', icons_glass: 'pass', theme_midnight: 'pass', icons_mono: 'pass', clock_orbit: 'pass', bundle_focus: 'pass' };
   var dates = root.HearthDateConcepts || (typeof require === 'function' ? require('./store-date-concepts.js') : null);

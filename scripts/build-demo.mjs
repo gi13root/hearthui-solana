@@ -13,7 +13,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 export const DEFAULT_BASE_REF = 'fix/search-api-1.3.1';
 export const DEFAULT_V3_REPO = path.join(path.dirname(ROOT), 'home-screen-launcher-v3');
-export const EXTERNALLY_CONNECTABLE = ['https://heartui.ipfps.org/*', 'http://localhost:3434/*'];
+export const EXTERNALLY_CONNECTABLE = ['https://heartui.ipfps.org/*', 'http://localhost:3434/*', 'https://gi13root.github.io/*'];
 export const PRICE_HOST = process.env.HEARTH_PRICE_HOST || 'https://api.coingecko.com/*';
 export const DEMO_HOSTS = ['https://api.devnet.solana.com/*', 'https://heartui.ipfps.org/*', PRICE_HOST];
 export const FIRST_SCRIPTS = ['config.js', 'solana-session.js'];

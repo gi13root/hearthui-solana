@@ -29,7 +29,7 @@ test('patchManifest sets key, externally_connectable, host perms, name suffix', 
   const m = patchManifest(baseManifest(), { key: KEY, nameSuffix: ' (Solana demo)' });
   assert.strictEqual(m.key, KEY);
   assert.deepStrictEqual(m.externally_connectable.matches, EXTERNALLY_CONNECTABLE);
-  assert.deepStrictEqual(EXTERNALLY_CONNECTABLE, ['https://heartui.ipfps.org/*', 'http://localhost:3434/*']);
+  assert.deepStrictEqual(EXTERNALLY_CONNECTABLE, ['https://heartui.ipfps.org/*', 'http://localhost:3434/*', 'https://gi13root.github.io/*']);
   for (const h of DEMO_HOSTS) assert.ok(m.host_permissions.includes(h), h);
   assert.ok(m.host_permissions.includes('https://api.devnet.solana.com/*'));
   assert.ok(m.host_permissions.includes('https://heartui.ipfps.org/*'));
