@@ -16,7 +16,7 @@ HearthUI is a Chrome new-tab launcher already live in the Chrome Web Store ([INS
 - USDC (SPL `transferChecked`), associated token accounts created idempotently.
 - Phantom sign-in (SIWS-style message) and transaction signing via a static bridge page.
 - Client-side ownership checks via `getAccountInfo` on receipt PDAs.
-- IPFPS integration: Solana wallet login, USDC deposits to a platform escrow, digital-goods shop.
+- IPFPS integration: Solana wallet login (`web3/verify`, `solana-devnet`) and the digital-goods shop paid in platform points (verified end-to-end); USDC top-ups into the platform escrow are next (mainnet policy exists, devnet pending).
 
 **Open source:** https://github.com/gi13root/hearthui-solana (MIT for this repository; the HearthUI base app is proprietary and is not published — the built demo is shared with judges on request).
 
