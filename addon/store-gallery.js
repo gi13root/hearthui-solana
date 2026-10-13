@@ -108,6 +108,7 @@
   function state(item) { return catalog().cardState(item, owned, applied()); }
   function stateName(item) { var s = state(item); return typeof s === 'string' ? s : s.state || s.status; }
   function items() {
+    if(tab==='bundles')return (catalog()?catalog().filterItems(tab):[]).concat(root.HearthDateConcepts?root.HearthDateConcepts.items:[]); // date stacks are 24-design bundles
     if(tab!=='widgets')return catalog()?catalog().filterItems(tab):[];
     var dates=root.HearthDateConcepts;
     if(widgetCategory==='date')return dates?dates.items:[];
