@@ -15,12 +15,22 @@
       } }], source);
     }
     doc.addEventListener('contextmenu', onContext);
-    return function () { doc.removeEventListener('contextmenu', onContext); };
+    // Dock "Widgets" (⊞) opens the store on its Widgets tab; the host binds its own handler at render, so intercept in capture.
+    function onClick(event) {
+      var btn = event.target && event.target.closest ? event.target.closest('.dock-btn[data-tip="Widgets"]') : null;
+      if (!btn) return;
+      event.preventDefault(); event.stopImmediatePropagation();
+      deps.schedule(function () { deps.openWidgets(btn); });
+    }
+    if (typeof deps.openWidgets === 'function') doc.addEventListener('click', onClick, true);
+    return function () { doc.removeEventListener('contextmenu', onContext); doc.removeEventListener('click', onClick, true); };
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = { installStoreEntry: installStoreEntry };
   if (!root || !root.document || root.__hearthStoreEntryInstalled) return;
   root.__hearthStoreEntryInstalled = true;
   installStoreEntry({ document: root.document, menu: root.showCtxMenu, open: function (source) {
     if (root.HearthStoreGallery) root.HearthStoreGallery.open(source);
+  }, openWidgets: function (source) {
+    if (root.HearthStoreGallery) root.HearthStoreGallery.open(source, { tab: 'widgets' });
   }, schedule: function (fn) { root.setTimeout(fn, 0); } });
 })(typeof window !== 'undefined' ? window : null);

@@ -24,3 +24,18 @@ test('existing widget and dock context menus remain untouched', () => {
   for (const fixture of [{ target: { id: 'dock' }, defaultPrevented: false }, { target: { id: 'widgetCanvas' }, defaultPrevented: true }, { target: { id: 'button' }, defaultPrevented: false }]) listener(fixture);
   assert.equal(calls, 0);
 });
+
+test('dock Widgets button opens the store on the Widgets tab instead of the old panel', () => {
+  const listeners = {};
+  const doc = { activeElement: null, addEventListener: (type, fn, capture) => { listeners[type] = { fn, capture }; }, removeEventListener() {} };
+  let opened = null;
+  install({ document: doc, menu() {}, open() {}, openWidgets: source => { opened = source; }, schedule: fn => fn() });
+  assert.equal(listeners.click.capture, true);
+  const btn = { matches: s => s === '.dock-btn[data-tip="Widgets"]' };
+  let stopped = false, prevented = false;
+  listeners.click.fn({ target: { closest: s => (s === '.dock-btn[data-tip="Widgets"]' ? btn : null) }, stopImmediatePropagation() { stopped = true; }, preventDefault() { prevented = true; } });
+  assert.equal(opened, btn); assert.ok(stopped && prevented);
+  opened = null;
+  listeners.click.fn({ target: { closest: () => null }, stopImmediatePropagation() { throw Error('must not stop'); }, preventDefault() {} });
+  assert.equal(opened, null);
+});

@@ -369,7 +369,7 @@
     previousLayerHidden=null;previewApplied=null;
     if(reopen){dialog.showModal();render();focus(selected?viewer.querySelector('button'):tabs.querySelector('[aria-current="page"]'));}
   }
-  function open(source){ensure();if(trial.active())revert(false);opener=source || document.activeElement;openerContainer=opener && opener.closest?opener.closest('.hs-store'):null;if(!dialog.open)dialog.showModal();render();focus(tabs.querySelector('[aria-current="page"]'));load(true);}
+  function open(source,opts){ensure();if(opts&&opts.tab){widgetAdder.invalidate();widgetPending=null;tab=opts.tab;selected=null;if(opts.tab==='widgets')widgetCategory='all';viewer.hidden=true;panel.hidden=false;}if(trial.active())revert(false);opener=source || document.activeElement;openerContainer=opener && opener.closest?opener.closest('.hs-store'):null;if(!dialog.open)dialog.showModal();render();focus(tabs.querySelector('[aria-current="page"]'));load(true);}
   function close(){loader.invalidate();widgetAdder.invalidate();widgetPending=null;if(trial.active())revert(false);selected=null;if(dialog){dialog.close();viewer.hidden=true;panel.hidden=false;}focus(resolveOpener(opener,openerContainer));}
   root.HearthStoreGallery={open:open,close:close}; root.openHearthStoreGallery=open;
 })(typeof window!=='undefined'?window:null);
