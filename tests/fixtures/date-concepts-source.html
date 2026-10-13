@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KWGT Complete Master Date Studio — 96 Standalone Widgets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,700&family=VT323&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,600&family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #06070a;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      padding: 30px 24px 140px;
+    }
+
+    .wrapper {
+      max-width: 1540px;
+      margin: 0 auto;
+    }
+
+    /* Top Sticky Header & Controls */
+    header {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header-title h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .header-title h1 span {
+      background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-title p {
+      color: #8b949e;
+      font-size: 13.5px;
+      margin-top: 4px;
+    }
+
+    /* Quick jump anchors */
+    .quick-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .nav-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .np-nothing { background: rgba(255, 42, 42, 0.12); color: #ff2a2a; border: 1px solid #ff2a2a; }
+    .np-liquid { background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid #38bdf8; }
+    .np-term { background: rgba(51, 255, 102, 0.12); color: #33ff66; border: 1px solid #33ff66; }
+    .np-eink { background: #dcd7cd; color: #2e2a24; border: 1px solid #8e877c; }
+
+    /* Date format controls */
+    .controls-panel {
+      display: flex;
+      gap: 6px;
+      background: #0d1117;
+      padding: 5px;
+      border-radius: 999px;
+      border: 1px solid #21262d;
+    }
+    .fmt-btn {
+      background: transparent;
+      border: none;
+      color: #8b949e;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fmt-btn:hover { color: #fff; }
+    .fmt-btn.active {
+      background: #ffffff;
+      color: #0d1117;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .format-banner {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #8b949e;
+    }
+    .format-banner strong {
+      color: #38bdf8;
+      font-family: 'Space Mono', monospace;
+      font-size: 15px;
+    }
+
+    /* Major Theme Block */
+    .theme-section {
+      margin-bottom: 90px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .theme-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .theme-header h2 {
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .theme-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Category Blocks */
+    .cat-wrapper {
+      margin-bottom: 40px;
+    }
+    .cat-head {
+      font-size: 13.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8b949e;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cat-head::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Responsive 4-Column Grid (displays 8 items as clean 4+4 rows) */
+    .grid-8 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 9.5px;
+      margin-bottom: 8px;
+    }
+
+
+    /* ==========================================================================
+       1. NOTHING OS STYLING (True NDot Matrix & Glyph Tube)
+       ========================================================================== */
+    .badge-nothing { background: rgba(255, 42, 42, 0.15); color: #ff2a2a; border: 1px solid #ff2a2a; }
+
+    .nothing-box {
+      background: #000000;
+      border: 1px solid #222222;
+      border-radius: 24px;
+      padding: 20px;
+      font-family: 'Space Mono', monospace;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 210px;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.9);
+      position: relative;
+    }
+    .n-glyph-bar {
+      width: 40px; height: 3px; background: #fff; border-radius: 99px;
+      box-shadow: 0 0 10px #fff; margin-bottom: 10px;
+    }
+    .ndot-digits-wrap { display: flex; gap: 10px; margin: 2px 0 8px; }
+    .ndot-char { display: grid; grid-template-columns: repeat(5, 5.5px); grid-template-rows: repeat(7, 5.5px); gap: 2.5px; }
+    .ndot-dot { width: 5.5px; height: 5.5px; border-radius: 50%; background: #141414; }
+    .ndot-dot.lit { background: #ffffff; box-shadow: 0 0 3px #ffffff; }
+    .ndot-dot.lit-red { background: #ff2a2a; box-shadow: 0 0 6px #ff2a2a; }
+
+    .n-week-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 10px 0; }
+    .n-w-box {
+      border: 1px solid #1c1c1c; background: #080808; border-radius: 6px; padding: 6px 1px; text-align: center;
+    }
+    .n-w-box.today {
+      border-color: #ff2a2a; background: rgba(255, 42, 42, 0.14); box-shadow: 0 0 10px rgba(255, 42, 42, 0.35);
+    }
+    .n-w-box.today .n-w-n { color: #fff; font-weight: 700; }
+    .n-w-box.today .n-w-d { color: #ff2a2a; }
+    .n-w-d { font-size: 8px; color: #555; display: block; }
+    .n-w-n { font-size: 12.5px; color: #888; display: block; margin-top: 1px; }
+
+    .n-month-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; font-size: 9.5px; margin: 6px 0; }
+    .n-m-dot { padding: 2.5px 0; color: #555; border-radius: 50%; }
+    .n-m-dot.today { background: #ff2a2a; color: #fff; font-weight: 800; box-shadow: 0 0 8px #ff2a2a; }
+
+
+    /* ==========================================================================
+       2. REAL LIQUID GLASS STYLING (Optical Refraction & Fluid Caustics)
+       ========================================================================== */
+    .badge-liquid { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid #38bdf8; }
+
+    .liquid-box {
+      position: relative;
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 60%, rgba(147, 197, 253, 0.08) 100%);
+      backdrop-filter: blur(28px) saturate(220%);
+      -webkit-backdrop-filter: blur(28px) saturate(220%);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-top-color: rgba(255, 255, 255, 0.65);
+      border-left-color: rgba(167, 139, 250, 0.5);
+      border-bottom-color: rgba(56, 189, 248, 0.4);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 210px;
+      overflow: hidden;
+      box-shadow: 0 20px 44px -8px rgba(0, 0, 0, 0.7), inset 0 1.5px 3px rgba(255, 255, 255, 0.7);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .liquid-box::before {
+      content: ""; position: absolute; top: 0; left: 10%; right: 10%; height: 42%;
+      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .liquid-caustic-mesh {
+      position: absolute; inset: -40%;
+      background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.22) 0%, transparent 40%),
+                  radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.18) 0%, transparent 45%);
+      mix-blend-mode: color-dodge; pointer-events: none;
+    }
+    .liquid-day-huge {
+      font-size: 68px; font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; color: #fff;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 25px rgba(56, 189, 248, 0.5);
+      position: relative; z-index: 2;
+    }
+    .liquid-pill-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; font-size: 12.5px; font-weight: 700;
+      position: relative; z-index: 2;
+    }
+    .liquid-drops-strip { display: flex; gap: 5px; margin: 10px 0; position: relative; z-index: 2; }
+    .l-drop-unit {
+      flex: 1; height: 48px; border-radius: 14px; background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .l-drop-unit.today {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.6) 0%, rgba(168, 85, 247, 0.4) 100%);
+      border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 6px 18px rgba(56, 189, 248, 0.5);
+    }
+    .l-drop-unit.today .ld-num { color: #fff; font-weight: 700; }
+
+
+    /* ==========================================================================
+       3. RETRO CRT TERMINAL STYLING (Phosphor Green Scanlines & ASCII)
+       ========================================================================== */
+    .badge-term { background: rgba(51, 255, 102, 0.15); color: #33ff66; border: 1px solid #33ff66; }
+
+    .term-card {
+      background: #061109;
+      border: 2px solid #22883e;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'VT323', monospace;
+      color: #33ff66;
+      text-shadow: 0 0 6px #33ff66, 0 0 12px rgba(51, 255, 102, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 210px;
+      box-shadow: 0 0 18px rgba(34, 136, 62, 0.25), inset 0 0 20px rgba(0, 0, 0, 0.9);
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+      background-size: 100% 4px;
+    }
+    .term-bar { font-size: 13px; border-bottom: 1px dashed #22883e; padding-bottom: 3px; letter-spacing: 0.08em; display: flex; justify-content: space-between; }
+    .term-giant-day { font-size: 76px; line-height: 0.85; margin: 2px 0; }
+    .term-cursor { display: inline-block; width: 9px; height: 16px; background: #33ff66; vertical-align: middle; animation: blinkCursor 1s step-start infinite; }
+    @keyframes blinkCursor { 50% { opacity: 0; } }
+
+    .term-ascii-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13.5px; text-align: center; }
+    .term-ascii-table th, .term-ascii-table td { border: 1px solid #22883e; padding: 2.5px 1px; }
+    .term-ascii-table td.today { background: #33ff66; color: #061109; text-shadow: none; font-weight: bold; }
+
+
+    /* ==========================================================================
+       4. COLOR E-INK STYLING (Kaleido 3 Micro-Pigment Paper)
+       ========================================================================== */
+    .badge-eink { background: #dcd7cd; color: #2e2a24; border: 1px solid #8e877c; }
+
+    .eink-card {
+      background: #f4efe6;
+      border: 2px solid #d4ccbd;
+      border-radius: 10px;
+      padding: 18px;
+      color: #1f1d1a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 210px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      background-image: radial-gradient(#dcd5c7 1px, transparent 1px);
+      background-size: 5px 5px;
+      font-family: 'Newsreader', Georgia, serif;
+      position: relative;
+    }
+    .eink-card::after {
+      content: "E-INK 300 PPI"; position: absolute; bottom: 5px; right: 10px;
+      font-family: -apple-system, sans-serif; font-size: 7px; font-weight: 700; color: #8c8577;
+    }
+    .eink-head {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em; color: #70685b; border-bottom: 1.5px solid #222;
+      padding-bottom: 3px; display: flex; justify-content: space-between;
+    }
+    .eink-num-huge { font-size: 72px; font-weight: 500; line-height: 0.9; color: #1a1815; letter-spacing: -0.04em; margin: 3px 0; }
+    .eink-terracotta { display: inline-block; background: #d86955; color: #fff; padding: 2px 8px; font-family: -apple-system, sans-serif; font-size: 11.5px; font-weight: 700; border-radius: 2px; }
+    
+    .eink-week-cells { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin: 8px 0; border-top: 1px solid #c9c0af; border-bottom: 1px solid #c9c0af; padding: 5px 0; }
+    .e-cell { text-align: center; padding: 2.5px 1px; }
+    .e-cell.today { background: #2b2823; color: #f4efe6; border-radius: 2px; }
+    .e-cell.today .ec-d { color: #dcd5c7; }
+    .ec-d { font-family: -apple-system, sans-serif; font-size: 8px; font-weight: 700; color: #70685b; text-transform: uppercase; }
+    .ec-n { font-size: 14px; font-family: 'Newsreader', serif; font-weight: 700; margin-top: 1px; }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 80px;
+      font-size: 13px;
+      color: #64748b;
+      font-family: 'Space Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <!-- Top Header Bar -->
+    <header>
+      <div class="header-title">
+        <h1><span>KWGT Master Date Studio — 96 Widgets</span></h1>
+        <p>4 distinctive styles × 3 date views (Day · Week · Month) × 8 designs per view</p>
+      </div>
+
+      <!-- Live Date Format Switcher -->
+      <div class="controls-panel">
+        <button class="fmt-btn">Jul 23</button>
+        <button class="fmt-btn">Wed, Jul 23</button>
+        <button class="fmt-btn active">July 23, 2026</button>
+        <button class="fmt-btn">Wednesday, July 23, 2026</button>
+      </div>
+    </header>
+
+    <!-- Quick navigation bar -->
+    <div class="quick-nav">
+      <a href="#theme-nothing" class="nav-pill np-nothing">1. Nothing OS (24 designs)</a>
+      <a href="#theme-liquid" class="nav-pill np-liquid">2. Real Liquid Glass (24 designs)</a>
+      <a href="#theme-terminal" class="nav-pill np-term">3. Retro CRT Terminal (24 designs)</a>
+      <a href="#theme-eink" class="nav-pill np-eink">4. Color E-Ink Paper (24 designs)</a>
+    </div>
+
+    <!-- Active date banner -->
+    <div class="format-banner">
+      <span>Active date format: <strong id="curFormatStr">July 23, 2026</strong></span>
+      <span>Applied to all 96 cards on this page</span>
+    </div>
+
+
+    <!-- ==========================================================================
+         THEME 1: NOTHING OS (NDot Matrix Digits & Glyph Red) — 24 WIDGETS
+         ========================================================================== -->
+    <section class="theme-section" id="theme-nothing">
+      <div class="theme-header">
+        <h2><span>1. Nothing OS Style</span></h2>
+        <span class="theme-badge badge-nothing">NDOT 5×7 MATRIX · GLYPH LIGHT TUBE · RED ACCENT</span>
+      </div>
+
+      <!-- DAY (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">DAY CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- D1: NDot Dual Character -->
+          <div class="nothing-box">
+            <div>
+              <div class="n-glyph-bar"></div>
+              <div class="card-meta"><span style="color:#666;">NDOT_DAY // 01</span><span style="color:#ff2a2a;">D1</span></div>
+              <div class="ndot-digits-wrap">
+                <div class="ndot-char">
+                  <div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot lit"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div>
+                  <div class="ndot-dot lit"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div>
+                  <div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div>
+                </div>
+                <div class="ndot-char">
+                  <div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot"></div><div class="ndot-dot lit"></div>
+                  <div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div><div class="ndot-dot lit"></div>
+                </div>
+              </div>
+              <div class="target-date" style="color:#ff2a2a; font-weight:700; font-size:12.5px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:9px; color:#555; border-top:1px dashed #222; padding-top:4px;">MONUMENTAL NDOT</div>
+          </div>
+
+          <!-- D2: Glyph Tachometer Dial -->
+          <div class="nothing-box" style="text-align:center;">
+            <div class="n-glyph-bar" style="margin:0 auto 8px;"></div>
+            <div class="card-meta"><span>TACHOMETER</span><span style="color:#ff2a2a;">D2</span></div>
+            <div style="width:96px; height:96px; border-radius:50%; border:2px dashed #333; margin:0 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
+              <div style="position:absolute; top:-4px; width:6px; height:6px; border-radius:50%; background:#ff2a2a; box-shadow:0 0 6px #ff2a2a;"></div>
+              <div style="font-size:38px; font-weight:800; line-height:0.9;">23</div>
+              <div style="font-size:8px; color:#ff2a2a; letter-spacing:0.1em;">TODAY</div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; margin-top:6px;">July 23, 2026</div>
+          </div>
+
+          <!-- D3: Pill Horizon 2×1 -->
+          <div class="nothing-box">
+            <div class="n-glyph-bar"></div>
+            <div class="card-meta"><span>PILL_HORIZON</span><span style="color:#ff2a2a;">D3</span></div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div style="width:54px; height:54px; border-radius:12px; border:1px solid #ff2a2a; background:rgba(255,42,42,0.1); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <span style="font-size:24px; font-weight:800; color:#fff;">23</span>
+                <span style="font-size:8px; color:#ff2a2a;">THU</span>
+              </div>
+              <div>
+                <div class="target-date" style="font-size:13.5px; font-weight:700;">July 23, 2026</div>
+                <div style="font-size:9.5px; color:#666; margin-top:2px;">WEEK 30 · D-204</div>
+              </div>
+            </div>
+            <div style="font-size:9px; color:#444;">HORIZON CHIP</div>
+          </div>
+
+          <!-- D4: Hardware Tape Drum -->
+          <div class="nothing-box">
+            <div class="n-glyph-bar"></div>
+            <div class="card-meta"><span>TAPE_DRUM</span><span style="color:#ff2a2a;">D4</span></div>
+            <div style="display:flex; justify-content:center; gap:12px; border:1px solid #1f1f1f; border-radius:10px; padding:10px 0; background:#080808;">
+              <span style="font-size:28px; color:#333;">22</span>
+              <span style="font-size:38px; color:#fff; font-weight:800; border-bottom:2px solid #ff2a2a;">23</span>
+              <span style="font-size:28px; color:#333;">24</span>
+            </div>
+            <div class="target-date" style="text-align:center; font-size:11.5px; color:#ff2a2a; margin-top:6px;">July 23, 2026</div>
+          </div>
+
+          <!-- D5: Cyber HUD Stencil -->
+          <div class="nothing-box">
+            <div class="n-glyph-bar"></div>
+            <div class="card-meta"><span>HUD_STENCIL</span><span style="color:#ff2a2a;">D5</span></div>
+            <div>
+              <div style="font-size:52px; font-weight:800; letter-spacing:-0.05em; line-height:0.9;">23</div>
+              <div style="font-size:10px; color:#ff2a2a; margin-top:4px;">SYS_DATE // ACTIVE</div>
+            </div>
+            <div class="target-date" style="font-size:12px; color:#fff; border-top:1px dashed #222; padding-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- D6: Typo Overlap Layer -->
+          <div class="nothing-box" style="overflow:hidden;">
+            <div class="n-glyph-bar"></div>
+            <div class="card-meta"><span>TYPO_OVERLAP</span><span style="color:#ff2a2a;">D6</span></div>
+            <div style="position:relative; margin:4px 0;">
+              <span style="position:absolute; top:-8px; left:0; font-size:46px; font-weight:800; color:#161616; z-index:1; pointer-events:none;">JULY</span>
+              <div style="position:relative; z-index:2; font-size:48px; font-weight:800; color:#fff; line-height:0.95;">23</div>
+            </div>
+            <div class="target-date" style="font-size:12px; color:#ff2a2a;">July 23, 2026</div>
+          </div>
+
+          <!-- D7: Solar Arc Day (24h) -->
+          <div class="nothing-box">
+            <div class="n-glyph-bar"></div>
+            <div class="card-meta"><span>SOLAR_ARC</span><span style="color:#ff2a2a;">D7</span></div>
+            <div>
+              <div style="font-size:36px; font-weight:800;">23</div>
+              <div class="target-date" style="font-size:12px; color:#ff2a2a;">July 23, 2026</div>
+              <div style="height:4px; background:#1a1a1a; border-radius:99px; margin-top:8px; overflow:hidden;">
+                <div style="height:100%; width:72%; background:#ff2a2a;"></div>
+              </div>
+            </div>
+            <div style="font-size:8.5px; color:#555; display:flex; justify-content:space-between;"><span>00:00</span><span>72% DAY</span><span>23:59</span></div>
+          </div>
+
+          <!-- D8: Minimal Chip Micro -->
+          <div class="nothing-box">
+            <div class="n-glyph-bar"></div>
+            <div class="card-meta"><span>MINI_CHIP</span><span style="color:#ff2a2a;">D8</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <div style="font-size:48px; font-weight:800; color:#fff;">23</div>
+              <div style="font-size:12px; color:#ff2a2a; font-weight:700;">THU</div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#777;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">WEEK CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- W1: LED Columns -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>LED_COLUMNS</span><span style="color:#ff2a2a;">W1</span></div>
+            <div class="n-week-strip">
+              <div class="n-w-box"><span class="n-w-d">M</span><span class="n-w-n">20</span></div>
+              <div class="n-w-box"><span class="n-w-d">T</span><span class="n-w-n">21</span></div>
+              <div class="n-w-box"><span class="n-w-d">W</span><span class="n-w-n">22</span></div>
+              <div class="n-w-box today"><span class="n-w-d">T</span><span class="n-w-n">23</span></div>
+              <div class="n-w-box"><span class="n-w-d">F</span><span class="n-w-n">24</span></div>
+              <div class="n-w-box"><span class="n-w-d">S</span><span class="n-w-n">25</span></div>
+              <div class="n-w-box"><span class="n-w-d">S</span><span class="n-w-n">26</span></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- W2: Equalizer Tower -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>EQUALIZER</span><span style="color:#ff2a2a;">W2</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; height:50px; margin:6px 0;">
+              <div style="width:8px; height:25px; background:#222;"></div>
+              <div style="width:8px; height:35px; background:#222;"></div>
+              <div style="width:8px; height:42px; background:#222;"></div>
+              <div style="width:8px; height:50px; background:#ff2a2a; box-shadow:0 0 8px #ff2a2a;"></div>
+              <div style="width:8px; height:18px; background:#111;"></div>
+              <div style="width:8px; height:14px; background:#111;"></div>
+              <div style="width:8px; height:10px; background:#111;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#ff2a2a;">July 23, 2026</div>
+          </div>
+
+          <!-- W3: Binary Progress Ring -->
+          <div class="nothing-box" style="text-align:center;">
+            <div class="card-meta"><span>RING_WEEK</span><span style="color:#ff2a2a;">W3</span></div>
+            <div style="width:72px; height:72px; border-radius:50%; border:3px solid #1c1c1c; border-top-color:#ff2a2a; border-right-color:#ff2a2a; margin:2px auto; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:800;">
+              4/7
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; margin-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- W4: Dual Block Split -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>SPLIT_WEEK</span><span style="color:#ff2a2a;">W4</span></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:6px 0;">
+              <div style="border:1px solid #ff2a2a; background:rgba(255,42,42,0.1); padding:6px; border-radius:6px; text-align:center;">
+                <span style="font-size:8px; color:#ff2a2a;">WORK</span><div style="font-size:16px; font-weight:800;">4/5</div>
+              </div>
+              <div style="border:1px solid #222; padding:6px; border-radius:6px; text-align:center;">
+                <span style="font-size:8px; color:#555;">WEEKEND</span><div style="font-size:16px; font-weight:800; color:#555;">0/2</div>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- W5: Dot Constellation -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>CONSTELLATION</span><span style="color:#ff2a2a;">W5</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0;">
+              <div style="width:8px; height:8px; border-radius:50%; background:#444;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#444;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#444;"></div>
+              <div style="width:12px; height:12px; border-radius:50%; background:#ff2a2a; box-shadow:0 0 10px #ff2a2a;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#1c1c1c;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#1c1c1c;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#1c1c1c;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#ff2a2a;">July 23, 2026</div>
+          </div>
+
+          <!-- W6: 3-Day Focus Cards -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>3_DAY_FOCUS</span><span style="color:#ff2a2a;">W6</span></div>
+            <div style="display:flex; flex-direction:column; gap:4px; font-size:11px;">
+              <div style="color:#555; display:flex; justify-content:space-between;"><span>WED 22</span><span>PASSED</span></div>
+              <div style="color:#fff; font-weight:700; background:rgba(255,42,42,0.15); border-left:2px solid #ff2a2a; padding:2px 6px; display:flex; justify-content:space-between;"><span>THU 23</span><span style="color:#ff2a2a;">TODAY</span></div>
+              <div style="color:#555; display:flex; justify-content:space-between;"><span>FRI 24</span><span>UPCOMING</span></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#777; margin-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- W7: Horizontal Stepper 7 -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>STEPPER_7</span><span style="color:#ff2a2a;">W7</span></div>
+            <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:3px; margin:10px 0;">
+              <div style="height:6px; background:#444; border-radius:1px;"></div>
+              <div style="height:6px; background:#444; border-radius:1px;"></div>
+              <div style="height:6px; background:#444; border-radius:1px;"></div>
+              <div style="height:6px; background:#ff2a2a; border-radius:1px; box-shadow:0 0 6px #ff2a2a;"></div>
+              <div style="height:6px; background:#1c1c1c; border-radius:1px;"></div>
+              <div style="height:6px; background:#1c1c1c; border-radius:1px;"></div>
+              <div style="height:6px; background:#1c1c1c; border-radius:1px;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- W8: Wave Cadence Monospace -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>WAVE_CADENCE</span><span style="color:#ff2a2a;">W8</span></div>
+            <div style="font-size:13px; line-height:1.3; color:#888;">
+              :: M-T-W-[<strong style="color:#ff2a2a;">T</strong>]-F-S-S<br>
+              :: CADENCE: 57.14%<br>
+              :: STATUS : ACTIVE
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; border-top:1px dashed #222; padding-top:4px;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTH (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">MONTH CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- M1: NDot Matrix Calendar -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>MATRIX_CAL</span><span style="color:#ff2a2a;">M1</span></div>
+            <div class="n-month-grid">
+              <div class="n-m-dot" style="opacity:0.2">29</div><div class="n-m-dot" style="opacity:0.2">30</div><div class="n-m-dot">01</div><div class="n-m-dot">02</div><div class="n-m-dot">03</div><div class="n-m-dot">04</div><div class="n-m-dot">05</div>
+              <div class="n-m-dot">06</div><div class="n-m-dot">07</div><div class="n-m-dot">08</div><div class="n-m-dot">09</div><div class="n-m-dot">10</div><div class="n-m-dot">11</div><div class="n-m-dot">12</div>
+              <div class="n-m-dot">13</div><div class="n-m-dot">14</div><div class="n-m-dot">15</div><div class="n-m-dot">16</div><div class="n-m-dot">17</div><div class="n-m-dot">18</div><div class="n-m-dot">19</div>
+              <div class="n-m-dot">20</div><div class="n-m-dot">21</div><div class="n-m-dot">22</div><div class="n-m-dot today">23</div><div class="n-m-dot">24</div><div class="n-m-dot">25</div><div class="n-m-dot">26</div>
+              <div class="n-m-dot">27</div><div class="n-m-dot">28</div><div class="n-m-dot">29</div><div class="n-m-dot">30</div><div class="n-m-dot">31</div><div class="n-m-dot" style="opacity:0.2">01</div><div class="n-m-dot" style="opacity:0.2">02</div>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#ff2a2a;">July 23, 2026</div>
+          </div>
+
+          <!-- M2: Dotted Progress Tape -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>PROGRESS_TAPE</span><span style="color:#ff2a2a;">M2</span></div>
+            <div>
+              <div style="font-size:34px; font-weight:800;">74%</div>
+              <div style="height:5px; background:#1c1c1c; border-radius:99px; overflow:hidden; margin-top:4px;">
+                <div style="height:100%; width:74%; background:#ff2a2a; box-shadow:0 0 8px #ff2a2a;"></div>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- M3: 31-Dot Matrix -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>31_DOTS</span><span style="color:#ff2a2a;">M3</span></div>
+            <div style="display:grid; grid-template-columns:repeat(11, 1fr); gap:3px; margin:8px 0;">
+              <div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div>
+              <div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div><div style="height:6px; background:#444; border-radius:1px;"></div>
+              <div style="height:6px; background:#ff2a2a; border-radius:1px; box-shadow:0 0 6px #ff2a2a;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div><div style="height:6px; background:#141414; border-radius:1px;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#ff2a2a;">July 23, 2026</div>
+          </div>
+
+          <!-- M4: Year 12-Month Bar -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>12_MONTHS</span><span style="color:#ff2a2a;">M4</span></div>
+            <div style="display:flex; flex-wrap:wrap; gap:2.5px; margin:4px 0;">
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">JAN</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">FEB</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">MAR</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">APR</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">MAY</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">JUN</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #ff2a2a; background:rgba(255,42,42,0.15); color:#ff2a2a; font-weight:700;">JUL</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">AUG</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">SEP</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">OCT</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">NOV</span>
+              <span style="font-size:8px; padding:2px 4px; border:1px solid #222; color:#555;">DEC</span>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- M5: Ratio Split 23 / 8 -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>RATIO_SPLIT</span><span style="color:#ff2a2a;">M5</span></div>
+            <div style="display:flex; justify-content:space-around; align-items:baseline;">
+              <div><span style="font-size:8px; color:#555;">PASSED</span><div style="font-size:32px; font-weight:800; color:#fff;">23</div></div>
+              <div style="font-size:18px; color:#444;">/</div>
+              <div><span style="font-size:8px; color:#555;">LEFT</span><div style="font-size:32px; font-weight:800; color:#ff2a2a;">08</div></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; border-top:1px dashed #222; padding-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- M6: Rotary Orbit Meter -->
+          <div class="nothing-box" style="text-align:center;">
+            <div class="card-meta"><span>ORBIT_MONTH</span><span style="color:#ff2a2a;">M6</span></div>
+            <div style="width:70px; height:70px; border-radius:50%; border:3px solid #1c1c1c; border-top-color:#ff2a2a; border-right-color:#ff2a2a; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800;">
+              23/31
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; margin-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- M7: Classic Desk Pad -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>DESK_PAD</span><span style="color:#ff2a2a;">M7</span></div>
+            <div style="background:#0a0a0a; border:1px solid #222; border-radius:8px; padding:6px; text-align:center;">
+              <span style="font-size:9px; color:#ff2a2a; letter-spacing:0.1em;">JULY 2026</span>
+              <div style="font-size:32px; font-weight:800; line-height:1; margin:2px 0;">23</div>
+              <span style="font-size:8.5px; color:#555;">DAY 204</span>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- M8: Month Horizon Barcode -->
+          <div class="nothing-box">
+            <div class="card-meta"><span>BARCODE_M</span><span style="color:#ff2a2a;">M8</span></div>
+            <div>
+              <div style="font-size:12px; color:#888;">BARCODE // M-07</div>
+              <div style="display:flex; gap:1px; height:22px; margin:6px 0;">
+                <div style="flex:1; background:#fff;"></div><div style="flex:1; background:#444;"></div><div style="flex:1; background:#fff;"></div><div style="flex:1; background:#222;"></div><div style="flex:1; background:#fff;"></div><div style="flex:1; background:#ff2a2a;"></div><div style="flex:1; background:#111;"></div><div style="flex:1; background:#111;"></div>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#ff2a2a;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         THEME 2: REAL LIQUID GLASS (Optical Refraction & Fluid Caustics) — 24 WIDGETS
+         ========================================================================== -->
+    <section class="theme-section" id="theme-liquid">
+      <div class="theme-header">
+        <h2><span>2. Real Liquid Glass Style</span></h2>
+        <span class="theme-badge badge-liquid">CONVEX LENS · CHROMATIC PRISM · CAUSTIC WAVES</span>
+      </div>
+
+      <!-- DAY (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">DAY CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- D1: Huge Liquid Lens -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>LIQUID LENS</span><span style="color:#38bdf8;">D1</span></div>
+            <div>
+              <div class="liquid-day-huge">23</div>
+              <div class="liquid-pill-badge target-date">July 23, 2026</div>
+            </div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.6); position:relative; z-index:2;">Thursday · Day 204</div>
+          </div>
+
+          <!-- D2: Horizontal Liquid Split 2×1 -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>SPLIT PILL</span><span style="color:#38bdf8;">D2</span></div>
+            <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:2;">
+              <div style="width:56px; height:56px; border-radius:16px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.4); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <span style="font-size:24px; font-weight:800;">23</span>
+                <span style="font-size:8px; color:#38bdf8;">THU</span>
+              </div>
+              <div>
+                <div class="target-date" style="font-size:13.5px; font-weight:700;">July 23, 2026</div>
+                <div style="font-size:10px; color:rgba(255,255,255,0.6);">Week 30 of the year</div>
+              </div>
+            </div>
+            <div style="font-size:9.5px; color:#38bdf8; position:relative; z-index:2;">Specular highlight</div>
+          </div>
+
+          <!-- D3: Orbit Ring Day -->
+          <div class="liquid-box" style="text-align:center;">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>ORBIT RING</span><span style="color:#38bdf8;">D3</span></div>
+            <div style="width:84px; height:84px; border-radius:50%; border:2px solid rgba(255,255,255,0.3); border-top-color:#38bdf8; margin:0 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 16px rgba(56,189,248,0.4); position:relative; z-index:2;">
+              <span style="font-size:36px; font-weight:800; line-height:1;">23</span>
+              <span style="font-size:8px; color:#38bdf8;">JULY</span>
+            </div>
+            <div class="target-date" style="font-size:12px; font-weight:600; margin-top:4px; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- D4: Prismatic Solar Arc -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>PRISMATIC</span><span style="color:#38bdf8;">D4</span></div>
+            <div style="position:relative; z-index:2;">
+              <div style="font-size:38px; font-weight:800; line-height:1;">23</div>
+              <div class="target-date" style="font-size:12.5px; font-weight:600; color:#38bdf8; margin-top:2px;">July 23, 2026</div>
+              <div style="height:5px; background:rgba(255,255,255,0.12); border-radius:99px; margin-top:8px; overflow:hidden;">
+                <div style="height:100%; width:72%; background:linear-gradient(90deg, #38bdf8, #a855f7);"></div>
+              </div>
+            </div>
+            <div style="font-size:9px; color:rgba(255,255,255,0.6); display:flex; justify-content:space-between; position:relative; z-index:2;"><span>00:00</span><span>72% of the day</span><span>23:59</span></div>
+          </div>
+
+          <!-- D5: Compass Glass -->
+          <div class="liquid-box" style="text-align:center;">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>COMPASS</span><span style="color:#38bdf8;">D5</span></div>
+            <div style="width:78px; height:78px; border-radius:50%; border:1px dashed rgba(255,255,255,0.4); margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:800; position:relative; z-index:2;">
+              23
+            </div>
+            <div class="target-date" style="font-size:12px; color:#fff; position:relative; z-index:2; margin-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- D6: Typo Watermark Glass -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>WATERMARK</span><span style="color:#38bdf8;">D6</span></div>
+            <div style="position:relative; z-index:2;">
+              <div style="font-size:46px; font-weight:800; line-height:0.9;">23</div>
+              <div style="font-size:13px; font-weight:700; color:#38bdf8;">JULY / 2026</div>
+            </div>
+            <div class="target-date" style="font-size:12px; color:rgba(255,255,255,0.8); position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- D7: Cyber Glass HUD -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>CYBER HUD</span><span style="color:#38bdf8;">D7</span></div>
+            <div style="position:relative; z-index:2;">
+              <span style="font-size:9px; color:#38bdf8;">LOC_INDEX: 0204</span>
+              <div style="font-size:42px; font-weight:800;">23</div>
+            </div>
+            <div class="target-date" style="font-size:12px; color:#fff; border-top:1px solid rgba(255,255,255,0.15); padding-top:4px; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- D8: Minimal Glass Chip -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>MINI CHIP</span><span style="color:#38bdf8;">D8</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; position:relative; z-index:2;">
+              <div style="font-size:44px; font-weight:800;">23</div>
+              <div style="font-size:13px; color:#38bdf8; font-weight:700;">THU</div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:rgba(255,255,255,0.7); position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">WEEK CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- W1: Floating Liquid Drops -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>FLUID DROPS</span><span style="color:#38bdf8;">W1</span></div>
+            <div class="liquid-drops-strip">
+              <div class="l-drop-unit"><span style="font-size:8px; color:rgba(255,255,255,0.5)">M</span><span class="ld-num">20</span></div>
+              <div class="l-drop-unit"><span style="font-size:8px; color:rgba(255,255,255,0.5)">T</span><span class="ld-num">21</span></div>
+              <div class="l-drop-unit"><span style="font-size:8px; color:rgba(255,255,255,0.5)">W</span><span class="ld-num">22</span></div>
+              <div class="l-drop-unit today"><span style="font-size:8px; color:#fff">T</span><span class="ld-num">23</span></div>
+              <div class="l-drop-unit"><span style="font-size:8px; color:rgba(255,255,255,0.5)">F</span><span class="ld-num">24</span></div>
+              <div class="l-drop-unit"><span style="font-size:8px; color:rgba(255,255,255,0.5)">S</span><span class="ld-num">25</span></div>
+              <div class="l-drop-unit"><span style="font-size:8px; color:rgba(255,255,255,0.5)">S</span><span class="ld-num">26</span></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#38bdf8; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- W2: Glass Arc Wheel -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>GLASS ARC</span><span style="color:#38bdf8;">W2</span></div>
+            <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:2;">
+              <div style="width:58px; height:58px; border-radius:50%; border:3px solid rgba(255,255,255,0.15); border-top-color:#38bdf8; border-right-color:#38bdf8; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:800; box-shadow:0 0 14px rgba(56,189,248,0.4);">
+                4/7
+              </div>
+              <div>
+                <div class="target-date" style="font-size:13.5px; font-weight:700;">July 23, 2026</div>
+                <div style="font-size:10px; color:rgba(255,255,255,0.6);">Thursday · Day 4</div>
+              </div>
+            </div>
+            <div style="font-size:9.5px; color:#38bdf8; position:relative; z-index:2;">Week progress</div>
+          </div>
+
+          <!-- W3: Glowing Nodes Constellation -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>NODES TRACK</span><span style="color:#38bdf8;">W3</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0; position:relative; z-index:2;">
+              <div style="width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3);"></div>
+              <div style="width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3);"></div>
+              <div style="width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3);"></div>
+              <div style="width:14px; height:14px; border-radius:50%; background:#38bdf8; box-shadow:0 0 10px #38bdf8;"></div>
+              <div style="width:10px; height:10px; border-radius:50%; border:1px solid rgba(255,255,255,0.3);"></div>
+              <div style="width:10px; height:10px; border-radius:50%; border:1px solid rgba(255,255,255,0.3);"></div>
+              <div style="width:10px; height:10px; border-radius:50%; border:1px solid rgba(255,255,255,0.3);"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- W4: 3-Day Focus Timeline -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>3-DAY FOCUS</span><span style="color:#38bdf8;">W4</span></div>
+            <div style="display:flex; flex-direction:column; gap:4px; margin:4px 0; position:relative; z-index:2;">
+              <div style="display:flex; justify-content:space-between; padding:3px 8px; border-radius:6px; background:rgba(255,255,255,0.04); font-size:11px; color:rgba(255,255,255,0.6);">
+                <span>Yesterday · Wed</span><span>22</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:3px 8px; border-radius:6px; background:rgba(56,189,248,0.25); border:1px solid rgba(56,189,248,0.5); font-size:11.5px; font-weight:700;">
+                <span>Today · Thu</span><span>23</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:3px 8px; border-radius:6px; background:rgba(255,255,255,0.04); font-size:11px; color:rgba(255,255,255,0.6);">
+                <span>Tomorrow · Fri</span><span>24</span>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#38bdf8; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- W5: Equalizer Fluid Bars -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>FLUID EQ</span><span style="color:#38bdf8;">W5</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; height:46px; margin:6px 0; position:relative; z-index:2;">
+              <div style="width:8px; height:24px; background:rgba(255,255,255,0.2); border-radius:4px;"></div>
+              <div style="width:8px; height:32px; background:rgba(255,255,255,0.2); border-radius:4px;"></div>
+              <div style="width:8px; height:38px; background:rgba(255,255,255,0.2); border-radius:4px;"></div>
+              <div style="width:8px; height:46px; background:#38bdf8; border-radius:4px; box-shadow:0 0 10px #38bdf8;"></div>
+              <div style="width:8px; height:16px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+              <div style="width:8px; height:12px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+              <div style="width:8px; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#38bdf8; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- W6: Horizontal Segment 7 -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>SEGMENT 7</span><span style="color:#38bdf8;">W6</span></div>
+            <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:3px; margin:10px 0; position:relative; z-index:2;">
+              <div style="height:6px; background:rgba(255,255,255,0.4); border-radius:2px;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.4); border-radius:2px;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.4); border-radius:2px;"></div>
+              <div style="height:6px; background:#38bdf8; border-radius:2px; box-shadow:0 0 6px #38bdf8;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:2px;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- W7: Split Work/Weekend Glass -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>SPLIT WEEK</span><span style="color:#38bdf8;">W7</span></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:6px 0; position:relative; z-index:2;">
+              <div style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.4); padding:6px; border-radius:8px; text-align:center;">
+                <span style="font-size:8px; color:#38bdf8;">WEEKDAYS</span><div style="font-size:16px; font-weight:800;">4/5</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:6px; border-radius:8px; text-align:center;">
+                <span style="font-size:8px; color:rgba(255,255,255,0.5);">WEEKEND</span><div style="font-size:16px; font-weight:800; color:rgba(255,255,255,0.6);">0/2</div>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- W8: Wave Cadence Curve -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>WAVE CADENCE</span><span style="color:#38bdf8;">W8</span></div>
+            <div style="position:relative; z-index:2; margin:6px 0;">
+              <div style="font-size:24px; font-weight:800; color:#38bdf8;">Thursday</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.65);">Week rhythm: 57.1% complete</div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTH (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">MONTH CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- M1: Fluid Mesh Meter -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>MONTH METER</span><span style="color:#38bdf8;">M1</span></div>
+            <div style="position:relative; z-index:2;">
+              <div style="font-size:32px; font-weight:800;">74%</div>
+              <div style="height:6px; border-radius:99px; background:rgba(255,255,255,0.15); margin-top:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.3);">
+                <div style="height:100%; width:74%; background:linear-gradient(90deg, #38bdf8, #a855f7); box-shadow:0 0 10px #38bdf8;"></div>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#38bdf8; position:relative; z-index:2; margin-top:6px;">July 23, 2026</div>
+          </div>
+
+          <!-- M2: Glass Matrix Calendar -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>GLASS MATRIX</span><span style="color:#38bdf8;">M2</span></div>
+            <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:2px; text-align:center; font-size:9.5px; margin:4px 0; position:relative; z-index:2;">
+              <span style="opacity:0.2">29</span><span style="opacity:0.2">30</span><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span>
+              <span>06</span><span>07</span><span>08</span><span>09</span><span>10</span><span>11</span><span>12</span>
+              <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
+              <span>20</span><span>21</span><span>22</span><span style="background:#38bdf8; color:#000; border-radius:50%; font-weight:800; box-shadow:0 0 6px #38bdf8;">23</span><span>24</span><span>25</span><span>26</span>
+              <span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span style="opacity:0.2">01</span><span style="opacity:0.2">02</span>
+            </div>
+            <div class="target-date" style="font-size:10.5px; color:#38bdf8; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- M3: Circular Lens Dial Month -->
+          <div class="liquid-box" style="text-align:center;">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>ORBIT DIAL</span><span style="color:#38bdf8;">M3</span></div>
+            <div style="width:72px; height:72px; border-radius:50%; border:3px solid rgba(255,255,255,0.2); border-top-color:#38bdf8; border-right-color:#38bdf8; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; box-shadow:0 0 14px rgba(56,189,248,0.4); position:relative; z-index:2;">
+              23/31
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; margin-top:4px; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- M4: Quarter Horizon Q3 -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>QUARTER Q3</span><span style="color:#38bdf8;">M4</span></div>
+            <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:2;">
+              <div style="width:52px; height:52px; border-radius:14px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <span style="font-size:20px; font-weight:800;">07</span>
+                <span style="font-size:7.5px; color:#38bdf8;">MONTH</span>
+              </div>
+              <div>
+                <div class="target-date" style="font-size:13px; font-weight:700;">July 23, 2026</div>
+                <div style="font-size:10px; color:rgba(255,255,255,0.6); margin-top:2px;">55% of the year complete</div>
+              </div>
+            </div>
+            <div style="font-size:9.5px; color:#38bdf8; position:relative; z-index:2;">Q3 2026</div>
+          </div>
+
+          <!-- M5: Ratio Split 23/8 Glass -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>RATIO SPLIT</span><span style="color:#38bdf8;">M5</span></div>
+            <div style="display:flex; justify-content:space-around; align-items:baseline; position:relative; z-index:2;">
+              <div><span style="font-size:8px; color:rgba(255,255,255,0.5);">ELAPSED</span><div style="font-size:30px; font-weight:800;">23</div></div>
+              <div style="font-size:18px; color:rgba(255,255,255,0.4);">/</div>
+              <div><span style="font-size:8px; color:rgba(255,255,255,0.5);">LEFT</span><div style="font-size:30px; font-weight:800; color:#38bdf8;">8</div></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- M6: 31-Dot Matrix Glass -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>31 SPHERES</span><span style="color:#38bdf8;">M6</span></div>
+            <div style="display:grid; grid-template-columns:repeat(11, 1fr); gap:3px; margin:6px 0; position:relative; z-index:2;">
+              <div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.3); border-radius:50%;"></div>
+              <div style="height:6px; background:#38bdf8; border-radius:50%; box-shadow:0 0 6px #38bdf8;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div><div style="height:6px; background:rgba(255,255,255,0.08); border-radius:50%;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#38bdf8; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- M7: Classic Desk Pad Glass -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>DESK TEAR</span><span style="color:#38bdf8;">M7</span></div>
+            <div style="border-radius:12px; background:rgba(255,255,255,0.06); padding:6px; text-align:center; position:relative; z-index:2;">
+              <span style="font-size:9px; color:#38bdf8; font-weight:700;">July 2026</span>
+              <div style="font-size:32px; font-weight:800; line-height:1; margin:2px 0;">23</div>
+              <span style="font-size:8px; color:rgba(255,255,255,0.6);">DAY 204</span>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+
+          <!-- M8: Year 12-Month Strip Glass -->
+          <div class="liquid-box">
+            <div class="liquid-caustic-mesh"></div>
+            <div class="card-meta"><span>12 MONTHS</span><span style="color:#38bdf8;">M8</span></div>
+            <div style="display:flex; flex-wrap:wrap; gap:2.5px; margin:4px 0; position:relative; z-index:2;">
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">JAN</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">FEB</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">MAR</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">APR</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">MAY</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">JUN</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:#38bdf8; color:#000; font-weight:700;">JUL</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">AUG</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">SEP</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">OCT</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">NOV</span>
+              <span style="font-size:7.5px; padding:2px 3px; background:rgba(255,255,255,0.05); color:#888;">DEC</span>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff; position:relative; z-index:2;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         THEME 3: RETRO CRT TERMINAL (Phosphor Green Scanlines & ASCII) — 24 WIDGETS
+         ========================================================================== -->
+    <section class="theme-section" id="theme-terminal">
+      <div class="theme-header">
+        <h2><span>3. Retro CRT Hacker Terminal</span></h2>
+        <span class="theme-badge badge-term">VT323 MONO · PHOSPHOR GREEN · CRT SCANLINES · ASCII</span>
+      </div>
+
+      <!-- DAY (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">DAY CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- D1: Date with Cursor -->
+          <div class="term-card">
+            <div class="term-bar"><span>root@sh:~# date</span><span style="color:#33ff66;">D1</span></div>
+            <div>
+              <div class="term-giant-day">23<span class="term-cursor"></span></div>
+              <div class="target-date" style="border:1px solid #22883e; padding:2px 5px; display:inline-block; font-size:13.5px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11.5px; display:flex; justify-content:space-between; border-top:1px dashed #22883e; padding-top:3px;">
+              <span>[DOY: 204]</span><span>[STATUS: OK]</span>
+            </div>
+          </div>
+
+          <!-- D2: ASCII Framed Day -->
+          <div class="term-card">
+            <div class="term-bar"><span>SYS_TIME.BIN</span><span style="color:#33ff66;">D2</span></div>
+            <div style="border:1px solid #22883e; padding:6px; text-align:center; background:rgba(34,136,62,0.06);">
+              <div style="font-size:11px;">+--[ TODAY ]--+</div>
+              <div style="font-size:46px; font-weight:bold; line-height:1;">23</div>
+              <div class="target-date" style="font-size:12.5px; color:#fff;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">ADDR: 0x7E2 · WEEK 30</div>
+          </div>
+
+          <!-- D3: Unix Timestamp Watch -->
+          <div class="term-card">
+            <div class="term-bar"><span>EPOCH_WATCH</span><span style="color:#33ff66;">D3</span></div>
+            <div>
+              <div style="font-size:11px; color:#22883e;">UNIX_SECONDS:</div>
+              <div style="font-size:24px; letter-spacing:0.05em; margin:2px 0;">1784764800</div>
+              <div class="target-date" style="font-size:14px; color:#fff;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">TZ: LOCAL · THURSDAY</div>
+          </div>
+
+          <!-- D4: Terminal Dual Column -->
+          <div class="term-card">
+            <div class="term-bar"><span>CAL_PEEK</span><span style="color:#33ff66;">D4</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="font-size:56px; line-height:0.9;">23</div>
+              <div style="font-size:12.5px; text-align:right; line-height:1.2;">
+                DAY: THU<br>WK : 30<br>YEAR: 2026
+              </div>
+            </div>
+            <div class="target-date" style="font-size:12.5px; border-top:1px dashed #22883e; padding-top:3px;">July 23, 2026</div>
+          </div>
+
+          <!-- D5: Compass Dial Hex -->
+          <div class="term-card" style="text-align:center;">
+            <div class="term-bar"><span>RADIAL_HEX</span><span style="color:#33ff66;">D5</span></div>
+            <div style="border:1px dashed #22883e; border-radius:50%; width:76px; height:76px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:32px;">
+              23
+            </div>
+            <div class="target-date" style="font-size:12px; color:#fff; margin-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- D6: Typo Watermark Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>BANNER_D</span><span style="color:#33ff66;">D6</span></div>
+            <div>
+              <div style="font-size:12px; color:#22883e;">### JULY // 07 ###</div>
+              <div style="font-size:48px; line-height:0.9; color:#fff;">23</div>
+            </div>
+            <div class="target-date" style="font-size:12px;">July 23, 2026</div>
+          </div>
+
+          <!-- D7: Solar Arc Day (24h) ASCII -->
+          <div class="term-card">
+            <div class="term-bar"><span>DAY_ARC</span><span style="color:#33ff66;">D7</span></div>
+            <div>
+              <div style="font-size:32px; font-weight:bold;">23</div>
+              <div style="font-size:13px; margin:2px 0;">[========....] 72%</div>
+              <div class="target-date" style="font-size:12px; color:#fff;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">SOLAR CADENCE: ACTIVE</div>
+          </div>
+
+          <!-- D8: Minimal Chip Micro Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>MINI_TTY</span><span style="color:#33ff66;">D8</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <div style="font-size:42px; line-height:0.9;">23</div>
+              <div style="font-size:13px;">[THU]</div>
+            </div>
+            <div class="target-date" style="font-size:12px;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">WEEK CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- W1: Table cal -w -->
+          <div class="term-card">
+            <div class="term-bar"><span>cal -w 30</span><span style="color:#33ff66;">W1</span></div>
+            <div>
+              <table class="term-ascii-table">
+                <thead><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr></thead>
+                <tbody><tr><td>20</td><td>21</td><td>22</td><td class="today">23</td><td>24</td><td>25</td><td>26</td></tr></tbody>
+              </table>
+              <div class="target-date" style="font-size:12.5px; margin-top:2px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">ACTIVE: THURSDAY</div>
+          </div>
+
+          <!-- W2: ASCII Gauge [=====>...] -->
+          <div class="term-card">
+            <div class="term-bar"><span>WEEK_GAUGE</span><span style="color:#33ff66;">W2</span></div>
+            <div>
+              <div style="font-size:14px; margin:2px 0;">[=====>...] 57%</div>
+              <div style="font-size:12px; line-height:1.3;">
+                DAY 4 OF 7 (THURSDAY)<br>
+                REMAIN: 3 DAYS
+              </div>
+              <div class="target-date" style="font-size:12.5px; color:#fff; margin-top:2px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">RETURN: 0</div>
+          </div>
+
+          <!-- W3: 3-Day Command Log -->
+          <div class="term-card">
+            <div class="term-bar"><span>LOG_3DAY</span><span style="color:#33ff66;">W3</span></div>
+            <div style="font-size:12.5px; line-height:1.3; margin:2px 0;">
+              [YESTERDAY] WED 22<br>
+              <strong style="color:#fff;">[ TODAY   ] THU 23 *</strong><br>
+              [TOMORROW ] FRI 24
+            </div>
+            <div class="target-date" style="font-size:12px; border-top:1px dashed #22883e; padding-top:2px;">July 23, 2026</div>
+          </div>
+
+          <!-- W4: Binary Workweek Check -->
+          <div class="term-card">
+            <div class="term-bar"><span>WORK_BITS</span><span style="color:#33ff66;">W4</span></div>
+            <div>
+              <div style="font-size:15px; letter-spacing:0.12em; margin:2px 0;">[X][X][X][*][ ]</div>
+              <div style="font-size:11.5px;">BITS: 11110 (4/5 WORK)</div>
+              <div class="target-date" style="font-size:12.5px; color:#fff; margin-top:2px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">WEEKEND IN: 1D</div>
+          </div>
+
+          <!-- W5: Equalizer Bars Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>EQ_BARS</span><span style="color:#33ff66;">W5</span></div>
+            <div style="font-size:13px; line-height:1.2; margin:2px 0;">
+              MO: |||<br>
+              TU: ||||<br>
+              WE: |||||<br>
+              <strong style="color:#fff;">TH: |||||| (ACT)</strong>
+            </div>
+            <div class="target-date" style="font-size:12px;">July 23, 2026</div>
+          </div>
+
+          <!-- W6: Dot Chain Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>DOT_CHAIN</span><span style="color:#33ff66;">W6</span></div>
+            <div style="font-size:16px; letter-spacing:0.1em; text-align:center; margin:8px 0;">
+              O-O-O-<strong style="color:#fff;">[@]</strong>-o-o-o
+            </div>
+            <div class="target-date" style="font-size:12.5px; text-align:center; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- W7: Stepper Table -->
+          <div class="term-card">
+            <div class="term-bar"><span>STEPPER_W</span><span style="color:#33ff66;">W7</span></div>
+            <div style="font-size:12px;">
+              [1] M  [2] T  [3] W<br>
+              <strong style="color:#fff;">[4] THU -> ACTIVE</strong><br>
+              [5] F  [6] S  [7] S
+            </div>
+            <div class="target-date" style="font-size:12px; margin-top:2px;">July 23, 2026</div>
+          </div>
+
+          <!-- W8: Wave Cadence Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>CADENCE_W</span><span style="color:#33ff66;">W8</span></div>
+            <div style="font-size:13px; line-height:1.3;">
+              /---\_.- THURSDAY<br>
+              WEEK_NUM: 30<br>
+              STATUS  : OPERATIONAL
+            </div>
+            <div class="target-date" style="font-size:12px; border-top:1px dashed #22883e; padding-top:2px;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTH (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">MONTH CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- M1: ASCII Month Progress -->
+          <div class="term-card">
+            <div class="term-bar"><span>cal -m 07 2026</span><span style="color:#33ff66;">M1</span></div>
+            <div>
+              <div style="font-size:13.5px; margin-bottom:2px;">[================..] 74%</div>
+              <div style="font-size:11.5px; line-height:1.2;">
+                ELAPSED: 23 DAYS<br>REMAIN : 08 DAYS
+              </div>
+              <div class="target-date" style="font-size:12.5px; color:#fff; margin-top:2px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">TOTAL: 31 DAYS · EOF</div>
+          </div>
+
+          <!-- M2: Full ASCII 7x5 Matrix -->
+          <div class="term-card">
+            <div class="term-bar"><span>MATRIX_CAL</span><span style="color:#33ff66;">M2</span></div>
+            <div style="font-size:11px; line-height:1.15; text-align:center; margin:2px 0;">
+              MO TU WE TH FR SA SU<br>
+              29 30 01 02 03 04 05<br>
+              06 07 08 09 10 11 12<br>
+              13 14 15 16 17 18 19<br>
+              20 21 22 <strong style="background:#33ff66; color:#000;">23</strong> 24 25 26<br>
+              27 28 29 30 31 01 02
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#fff;">July 23, 2026</div>
+          </div>
+
+          <!-- M3: Memory Map Style -->
+          <div class="term-card">
+            <div class="term-bar"><span>MEM_MAP</span><span style="color:#33ff66;">M3</span></div>
+            <div>
+              <div style="font-size:11.5px;">0x00: JULY_TOTAL = 31</div>
+              <div style="font-size:11.5px;">0x17: CURRENT_DAY= 23</div>
+              <div style="font-size:11.5px; color:#fff;">DELTA: +8 DAYS TO EOF</div>
+              <div class="target-date" style="font-size:12.5px; color:#33ff66; margin-top:2px;">July 23, 2026</div>
+            </div>
+            <div style="font-size:11px;">RANGE: VALID</div>
+          </div>
+
+          <!-- M4: Terminal Status Banner -->
+          <div class="term-card">
+            <div class="term-bar"><span>UNAME_CAL</span><span style="color:#33ff66;">M4</span></div>
+            <div style="font-size:12.5px; line-height:1.3;">
+              HOST: CAL-TERMINAL<br>MONTH: JULY (IDX 07)<br>BAR: [||||||||||..]
+            </div>
+            <div class="target-date" style="font-size:12px; color:#fff; border-top:1px dashed #22883e; padding-top:2px;">July 23, 2026</div>
+          </div>
+
+          <!-- M5: Ratio Split 23/8 Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>RATIO_CAL</span><span style="color:#33ff66;">M5</span></div>
+            <div style="display:flex; justify-content:space-around; align-items:baseline;">
+              <div><span style="font-size:11px;">PAST:</span><div style="font-size:32px; font-weight:bold;">23</div></div>
+              <div style="font-size:20px;">/</div>
+              <div><span style="font-size:11px;">LEFT:</span><div style="font-size:32px; font-weight:bold; color:#fff;">08</div></div>
+            </div>
+            <div class="target-date" style="font-size:12px;">July 23, 2026</div>
+          </div>
+
+          <!-- M6: 31-Char Buffer Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>BUF_31</span><span style="color:#33ff66;">M6</span></div>
+            <div style="font-size:11px; word-break:break-all; line-height:1.2; margin:4px 0;">
+              #######################<strong style="color:#fff;">*</strong>-------
+            </div>
+            <div class="target-date" style="font-size:12px; color:#33ff66;">July 23, 2026</div>
+            <div style="font-size:11px;">PTR: POS 23 OF 31</div>
+          </div>
+
+          <!-- M7: Radial Dial ASCII -->
+          <div class="term-card" style="text-align:center;">
+            <div class="term-bar"><span>RADIAL_M</span><span style="color:#33ff66;">M7</span></div>
+            <div style="font-size:26px; border:1px dashed #22883e; border-radius:50%; width:64px; height:64px; margin:2px auto; display:flex; align-items:center; justify-content:center;">
+              74%
+            </div>
+            <div class="target-date" style="font-size:12px; color:#fff; margin-top:2px;">July 23, 2026</div>
+          </div>
+
+          <!-- M8: Year 12-Month Array Terminal -->
+          <div class="term-card">
+            <div class="term-bar"><span>YEAR_ARR</span><span style="color:#33ff66;">M8</span></div>
+            <div style="font-size:11.5px; line-height:1.3;">
+              01:JAN 02:FEB 03:MAR<br>
+              04:APR 05:MAY 06:JUN<br>
+              <strong style="color:#fff; background:#22883e;">07:JUL -> ACTIVE (Q3)</strong><br>
+              08:AUG 09:SEP 10:OCT
+            </div>
+            <div class="target-date" style="font-size:12px; margin-top:2px;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         THEME 4: COLOR E-INK (Kaleido 3 Micro-Pigment Paper) — 24 WIDGETS
+         ========================================================================== -->
+    <section class="theme-section" id="theme-eink" style="margin-bottom:0; border-bottom:none;">
+      <div class="theme-header">
+        <h2><span>4. Color E-Ink Style</span></h2>
+        <span class="theme-badge badge-eink">KALEIDO 3 PAPER · 300 PPI · MUTED PIGMENTS</span>
+      </div>
+
+      <!-- DAY (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">DAY CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- D1: Editorial Newsreader Serif Day -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Thursday</span><span style="color:#d86955;">D1</span></div>
+            <div>
+              <div class="eink-num-huge">23</div>
+              <span class="eink-terracotta target-date">July 23, 2026</span>
+              <div style="font-size:11.5px; color:#5c5549; font-style:italic; margin-top:3px;">The thirtieth week of the year</div>
+            </div>
+            <div style="font-family:-apple-system,sans-serif; font-size:9px; color:#70685b; border-top:1px solid #d4ccbd; padding-top:3px;">31 DAYS IN JULY</div>
+          </div>
+
+          <!-- D2: Book Chapter Style Day -->
+          <div class="eink-card" style="text-align:center;">
+            <div class="eink-head"><span>Chapter VII</span><span style="color:#d86955;">D2</span></div>
+            <div style="margin:4px 0;">
+              <div style="font-size:14px; font-style:italic; color:#70685b;">The twenty-third</div>
+              <div style="font-size:46px; font-weight:700; line-height:1; margin:2px 0;">23</div>
+              <div class="target-date" style="font-size:12px; font-weight:600; color:#d86955;">July 23, 2026</div>
+            </div>
+            <div style="font-family:-apple-system,sans-serif; font-size:8.5px; color:#888;">THURSDAY · SUMMER</div>
+          </div>
+
+          <!-- D3: E-Paper Pocket Badge Split -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Calendar</span><span style="color:#d86955;">D3</span></div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div style="width:54px; height:54px; border:2px solid #2e2a24; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <span style="font-size:24px; font-weight:700;">23</span>
+                <span style="font-size:8px; font-family:-apple-system,sans-serif; font-weight:700; color:#d86955;">THU</span>
+              </div>
+              <div>
+                <div class="target-date" style="font-size:13px; font-weight:700;">July 23, 2026</div>
+                <div style="font-size:11px; color:#5c5549; font-style:italic;">Week 30 of the year</div>
+              </div>
+            </div>
+            <div style="font-family:-apple-system,sans-serif; font-size:8.5px; color:#888;">MATTE DISPLAY</div>
+          </div>
+
+          <!-- D4: E-Reader Bookmark Sheet -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Bookmark</span><span style="color:#d86955;">D4</span></div>
+            <div>
+              <div style="font-size:38px; font-weight:700; line-height:1;">23</div>
+              <div class="target-date" style="font-size:12px; font-weight:700; color:#d86955; margin-top:2px;">July 23, 2026</div>
+              <div style="height:4px; border:1px solid #2e2a24; background:#e0d8cb; margin-top:6px;">
+                <div style="height:100%; width:72%; background:#2e2a24;"></div>
+              </div>
+            </div>
+            <div style="font-family:-apple-system,sans-serif; font-size:8.5px; color:#70685b; display:flex; justify-content:space-between;">
+              <span>00:00</span><span>72% OF THE DAY</span><span>23:59</span>
+            </div>
+          </div>
+
+          <!-- D5: Minimalist Compass E-Paper -->
+          <div class="eink-card" style="text-align:center;">
+            <div class="eink-head"><span>Compass</span><span style="color:#d86955;">D5</span></div>
+            <div style="border:1.5px solid #2e2a24; border-radius:50%; width:72px; height:72px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:700;">
+              23
+            </div>
+            <div class="target-date" style="font-size:12px; color:#1a1815; font-weight:600; margin-top:4px;">July 23, 2026</div>
+          </div>
+
+          <!-- D6: Typo Watermark Newsprint -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Newspaper</span><span style="color:#d86955;">D6</span></div>
+            <div>
+              <div style="font-family:-apple-system,sans-serif; font-size:10px; font-weight:700; color:#70685b;">ISSUE VII // 2026</div>
+              <div style="font-size:48px; font-weight:700; line-height:0.9;">23</div>
+            </div>
+            <div class="target-date" style="font-size:12px; color:#d86955; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- D7: Solar Arc Day E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Daylight</span><span style="color:#d86955;">D7</span></div>
+            <div>
+              <div style="font-size:34px; font-weight:700;">23</div>
+              <div class="target-date" style="font-size:12px; color:#d86955; font-weight:700;">July 23, 2026</div>
+              <div style="height:5px; border:1px solid #2e2a24; background:#e0d8cb; margin-top:6px;">
+                <div style="height:100%; width:72%; background:#2e2a24;"></div>
+              </div>
+            </div>
+            <div style="font-family:-apple-system,sans-serif; font-size:8.5px; color:#70685b;">DAY 204 OF 365</div>
+          </div>
+
+          <!-- D8: Minimal Chip Micro E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Mini Chip</span><span style="color:#d86955;">D8</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <div style="font-size:42px; font-weight:700;">23</div>
+              <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#d86955;">THU</div>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#70685b;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEEK (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">WEEK CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- W1: Newspaper Column Strip -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Week 30</span><span style="color:#d86955;">W1</span></div>
+            <div class="eink-week-cells">
+              <div class="e-cell"><div class="ec-d">Mon</div><div class="ec-n">20</div></div>
+              <div class="e-cell"><div class="ec-d">Tue</div><div class="ec-n">21</div></div>
+              <div class="e-cell"><div class="ec-d">Wed</div><div class="ec-n">22</div></div>
+              <div class="e-cell today"><div class="ec-d">Thu</div><div class="ec-n">23</div></div>
+              <div class="e-cell"><div class="ec-d">Fri</div><div class="ec-n">24</div></div>
+              <div class="e-cell"><div class="ec-d">Sat</div><div class="ec-n">25</div></div>
+              <div class="e-cell"><div class="ec-d">Sun</div><div class="ec-n">26</div></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; font-weight:700; color:#d86955;">July 23, 2026</div>
+          </div>
+
+          <!-- W2: Editorial Progress Ring -->
+          <div class="eink-card" style="text-align:center;">
+            <div class="eink-head"><span>Rhythm</span><span style="color:#d86955;">W2</span></div>
+            <div style="width:66px; height:66px; border-radius:50%; border:3px solid #c9c0af; border-top-color:#2e2a24; border-right-color:#2e2a24; margin:2px auto; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700;">
+              4/7
+            </div>
+            <div class="target-date" style="font-size:11.5px; font-weight:600; margin-top:3px;">July 23, 2026</div>
+          </div>
+
+          <!-- W3: Workweek Split Box -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Workdays</span><span style="color:#d86955;">W3</span></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:6px 0;">
+              <div style="border:1.5px solid #2e2a24; background:#2e2a24; color:#f4efe6; padding:5px; text-align:center;">
+                <span style="font-size:7.5px; font-family:-apple-system,sans-serif;">WEEKDAYS</span><div style="font-size:16px; font-weight:700;">4/5</div>
+              </div>
+              <div style="border:1.5px solid #c9c0af; padding:5px; text-align:center;">
+                <span style="font-size:7.5px; font-family:-apple-system,sans-serif; color:#70685b;">WEEKEND</span><div style="font-size:16px; font-weight:700; color:#70685b;">0/2</div>
+              </div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; font-weight:700; color:#d86955;">July 23, 2026</div>
+          </div>
+
+          <!-- W4: 3-Day Reader Timeline -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Chronicle</span><span style="color:#d86955;">W4</span></div>
+            <div style="font-size:11.5px; line-height:1.35; margin:3px 0;">
+              Yesterday: Wednesday, July 22<br>
+              <strong style="color:#d86955;">Today: Thursday, July 23</strong><br>
+              Tomorrow: Friday, July 24
+            </div>
+            <div class="target-date" style="font-size:11.5px; border-top:1px solid #d4ccbd; padding-top:3px;">July 23, 2026</div>
+          </div>
+
+          <!-- W5: Equalizer Bars E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Day Scale</span><span style="color:#d86955;">W5</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; height:44px; margin:4px 0;">
+              <div style="width:7px; height:20px; background:#c9c0af;"></div>
+              <div style="width:7px; height:28px; background:#c9c0af;"></div>
+              <div style="width:7px; height:34px; background:#c9c0af;"></div>
+              <div style="width:7px; height:44px; background:#2e2a24;"></div>
+              <div style="width:7px; height:12px; background:#e0d8cb;"></div>
+              <div style="width:7px; height:10px; background:#e0d8cb;"></div>
+              <div style="width:7px; height:8px; background:#e0d8cb;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#d86955; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- W6: Dot Chain E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Chain 7</span><span style="color:#d86955;">W6</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0;">
+              <div style="width:8px; height:8px; border-radius:50%; background:#2e2a24;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#2e2a24;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; background:#2e2a24;"></div>
+              <div style="width:12px; height:12px; border-radius:50%; background:#d86955;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; border:1px solid #70685b;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; border:1px solid #70685b;"></div>
+              <div style="width:8px; height:8px; border-radius:50%; border:1px solid #70685b;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#1a1815; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- W7: Stepper Table E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Seven Days</span><span style="color:#d86955;">W7</span></div>
+            <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:2px; margin:8px 0;">
+              <div style="height:5px; background:#2e2a24;"></div>
+              <div style="height:5px; background:#2e2a24;"></div>
+              <div style="height:5px; background:#2e2a24;"></div>
+              <div style="height:5px; background:#d86955;"></div>
+              <div style="height:5px; background:#d4ccbd;"></div>
+              <div style="height:5px; background:#d4ccbd;"></div>
+              <div style="height:5px; background:#d4ccbd;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#d86955; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- W8: Wave Cadence E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Book Rhythm</span><span style="color:#d86955;">W8</span></div>
+            <div style="font-size:12px; line-height:1.3; margin:3px 0;">
+              The fourth day of the week.<br>
+              4 of 7 days complete (57%).
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#1a1815; font-weight:700; border-top:1px solid #d4ccbd; padding-top:3px;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTH (8 Variations) -->
+      <div class="cat-wrapper">
+        <div class="cat-head">MONTH CONCEPTS (8 designs)</div>
+        <div class="grid-8">
+          <!-- M1: Clean Newsprint Sheet -->
+          <div class="eink-card">
+            <div class="eink-head"><span>July 2026</span><span style="color:#d86955;">M1</span></div>
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline; margin:2px 0;">
+                <span style="font-size:28px; font-weight:700;">74%</span>
+                <span class="target-date" style="font-size:11.5px; font-family:-apple-system,sans-serif; font-weight:700; color:#d86955;">July 23, 2026</span>
+              </div>
+              <div style="height:6px; border:1.5px solid #2e2a24; background:#e0d8cb; position:relative;">
+                <div style="height:100%; width:74%; background:#2e2a24;"></div>
+              </div>
+              <div style="font-size:11px; color:#5c5549; margin-top:4px;">23 days complete · 8 left</div>
+            </div>
+            <div style="font-family:-apple-system,sans-serif; font-size:8.5px; color:#70685b;">TOTAL: 31 DAYS</div>
+          </div>
+
+          <!-- M2: Classic Newspaper Matrix -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Month Grid</span><span style="color:#d86955;">M2</span></div>
+            <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:2px; text-align:center; font-size:9.5px; margin:3px 0;">
+              <span style="opacity:0.3">29</span><span style="opacity:0.3">30</span><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span>
+              <span>06</span><span>07</span><span>08</span><span>09</span><span>10</span><span>11</span><span>12</span>
+              <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
+              <span>20</span><span>21</span><span>22</span><span style="background:#2e2a24; color:#fff; font-weight:700;">23</span><span>24</span><span>25</span><span>26</span>
+              <span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span style="opacity:0.3">01</span><span style="opacity:0.3">02</span>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#d86955; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- M3: Ratio Split 23 / 8 -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Month Balance</span><span style="color:#d86955;">M3</span></div>
+            <div style="display:flex; justify-content:space-around; align-items:baseline; margin:4px 0;">
+              <div><span style="font-size:8px; font-family:-apple-system,sans-serif; color:#70685b;">ELAPSED</span><div style="font-size:32px; font-weight:700;">23</div></div>
+              <div style="font-size:18px; color:#999;">/</div>
+              <div><span style="font-size:8px; font-family:-apple-system,sans-serif; color:#70685b;">LEFT</span><div style="font-size:32px; font-weight:700; color:#70685b;">8</div></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#d86955; font-weight:700; border-top:1px solid #d4ccbd; padding-top:3px;">July 23, 2026</div>
+          </div>
+
+          <!-- M4: 12-Month Year Navigator -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Year Tracker</span><span style="color:#d86955;">M4</span></div>
+            <div style="display:flex; flex-wrap:wrap; gap:2.5px; margin:4px 0;">
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">JAN</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">FEB</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">MAR</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">APR</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">MAY</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">JUN</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; background:#2e2a24; color:#fff; font-weight:700;">JUL</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">AUG</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">SEP</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">OCT</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">NOV</span>
+              <span style="font-size:7.5px; font-family:-apple-system,sans-serif; padding:1px 3px; border:1px solid #c9c0af; color:#70685b;">DEC</span>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#1a1815; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- M5: 31-Dot Matrix E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>31 Dots</span><span style="color:#d86955;">M5</span></div>
+            <div style="display:grid; grid-template-columns:repeat(11, 1fr); gap:3px; margin:6px 0;">
+              <div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div>
+              <div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div><div style="height:6px; background:#2e2a24; border-radius:50%;"></div>
+              <div style="height:6px; background:#d86955; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div><div style="height:6px; background:#d4ccbd; border-radius:50%;"></div>
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#d86955; font-weight:700;">July 23, 2026</div>
+          </div>
+
+          <!-- M6: Radial Dial E-Ink -->
+          <div class="eink-card" style="text-align:center;">
+            <div class="eink-head"><span>Month Circle</span><span style="color:#d86955;">M6</span></div>
+            <div style="width:64px; height:64px; border-radius:50%; border:3px solid #d4ccbd; border-top-color:#2e2a24; border-right-color:#2e2a24; margin:2px auto; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">
+              74%
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#1a1815; margin-top:2px;">July 23, 2026</div>
+          </div>
+
+          <!-- M7: Classic Desk Tear E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Calendar Sheet</span><span style="color:#d86955;">M7</span></div>
+            <div style="background:#e8e1d5; border:1px solid #2e2a24; padding:5px; text-align:center;">
+              <span style="font-size:8.5px; font-family:-apple-system,sans-serif; font-weight:700; color:#d86955;">July 2026</span>
+              <div style="font-size:28px; font-weight:700; line-height:1; margin:2px 0;">23</div>
+              <span style="font-size:8px; color:#70685b;">Thursday</span>
+            </div>
+            <div class="target-date" style="font-size:11px; color:#1a1815; font-weight:600;">July 23, 2026</div>
+          </div>
+
+          <!-- M8: Quarter Horizon Q3 E-Ink -->
+          <div class="eink-card">
+            <div class="eink-head"><span>Quarter</span><span style="color:#d86955;">M8</span></div>
+            <div style="font-size:12px; line-height:1.3; margin:2px 0;">
+              Q3 of 2026.<br>
+              Month 7 of 12 (July).
+            </div>
+            <div class="target-date" style="font-size:11.5px; color:#d86955; font-weight:700; border-top:1px solid #d4ccbd; padding-top:3px;">July 23, 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="footer-note">
+    KWGT COMPLETE MASTER DATE STUDIO · ALL 96 STANDALONE WIDGET DESIGNS · MANIFEST V3
+  </div>
+
+  
+<script src="/__qa-date-concept-stage.js"></script></body>
+</html>

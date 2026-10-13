@@ -1,0 +1,47 @@
+{
+  "desktop": {
+    "columns": "361.062px 361.062px 361.062px",
+    "dialog": [
+      1171.1953125,
+      855
+    ],
+    "enabledActions": 0,
+    "focus": "hsg-supporter-title",
+    "overflow": false,
+    "placeholders": 3,
+    "text": "Premium themesPremium themes will be available to buy here soon.Preview coming soonPremium themeComing soonPreview coming soonPremium themeComing soonPreview coming soonPremium themeComing soon"
+  },
+  "mobile": {
+    "columns": "323px",
+    "dialog": [
+      366,
+      750
+    ],
+    "overflow": false,
+    "scrollable": true
+  },
+  "narrowScroll": {
+    "lastVisible": false,
+    "scrollTop": 246.5
+  },
+  "console": [],
+  "network": {
+    "truncated": true,
+    "hasMore": false,
+    "assets": [
+      {
+        "url": "http://localhost:3435/addon/store-gallery.css",
+        "status": 200
+      },
+      {
+        "url": "http://localhost:3435/addon/store-catalog.js",
+        "status": 200
+      },
+      {
+        "url": "http://localhost:3435/addon/store-gallery.js",
+        "status": 200
+      }
+    ],
+    "failures": 0
+  }
+}

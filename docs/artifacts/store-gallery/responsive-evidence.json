@@ -1,0 +1,30 @@
+[
+  {
+    "cardCount": 6,
+    "columns": 3,
+    "overflow": false,
+    "owned": "3/3 owned",
+    "viewport": 1440
+  },
+  {
+    "cardCount": 6,
+    "columns": 2,
+    "overflow": false,
+    "owned": "3/3 owned",
+    "viewport": 1024
+  },
+  {
+    "cardCount": 6,
+    "columns": 1,
+    "overflow": false,
+    "owned": "3/3 owned",
+    "viewport": 700
+  },
+  {
+    "cardCount": 6,
+    "columns": 1,
+    "overflow": false,
+    "owned": "3/3 owned",
+    "viewport": 390
+  }
+]

@@ -1,0 +1,126 @@
+{
+  "desktop": {
+    "buttons": [
+      {
+        "enabled": true,
+        "text": "Buy $0.99 USDC"
+      },
+      {
+        "enabled": true,
+        "text": "Buy $0.99 USDC"
+      },
+      {
+        "enabled": true,
+        "text": "Buy $0.99 USDC"
+      },
+      {
+        "enabled": true,
+        "text": "Buy $0.99 USDC"
+      }
+    ],
+    "cards": 4,
+    "dialog": [
+      1171.1953125,
+      855
+    ],
+    "forbiddenLabel": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "addon/store-previews/date_nothing_stack-thumb.webp"
+      },
+      {
+        "loaded": true,
+        "src": "addon/store-previews/date_liquid_stack-thumb.webp"
+      },
+      {
+        "loaded": true,
+        "src": "addon/store-previews/date_terminal_stack-thumb.webp"
+      },
+      {
+        "loaded": true,
+        "src": "addon/store-previews/date_eink_stack-thumb.webp"
+      }
+    ],
+    "overflowX": false
+  },
+  "viewerAll": {
+    "buy": "Buy $0.99 USDC",
+    "samples": 24,
+    "title": "Nothing OS Date Stack",
+    "tryOn": false
+  },
+  "month": {
+    "period": "month",
+    "samples": 8,
+    "title": "Nothing OS Date Stack"
+  },
+  "enlarged": {
+    "src": "addon/store-previews/date_nothing_month_8.webp",
+    "title": "Nothing OS Date Stack"
+  },
+  "checkout": "Navigation requested: https://heartui.ipfps.org/bridge/#action=buy&sku=date_nothing_stack",
+  "mobile": {
+    "cards": 4,
+    "columns": "323px",
+    "dialog": [
+      366,
+      750
+    ],
+    "overflowX": false
+  },
+  "mobileViewer": {
+    "columns": "159.5px 159.5px",
+    "overflowX": false,
+    "samples": 8,
+    "title": "Color E-Ink Date Stack"
+  },
+  "bridge": {
+    "button": "Pay 0.99 USDC",
+    "enabled": true,
+    "price": "0.99 USDC",
+    "product": "Nothing OS Date Stack",
+    "status": "Phantom not detected. Install it, then reload.",
+    "title": "Buy date stack"
+  },
+  "english": {
+    "cyrillic": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_1-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_2-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_3-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_4-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_5-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_6-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_7-thumb.webp"
+      },
+      {
+        "complete": true,
+        "src": "addon/store-previews/date_eink_week_8-thumb.webp"
+      }
+    ],
+    "samples": 8,
+    "title": "Color E-Ink Date Stack"
+  },
+  "console": []
+}

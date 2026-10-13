@@ -1,5 +1,11 @@
 # HANDOFF
 
+ADDON_ORDER: store-date-concepts.js, config.js, solana-session.js, solana-logic.js, store-catalog.js, store-widget-catalog.js, store-supporter.js, store.js, store-gallery.js, store-entry.js, widgets.js
+
+Store gallery current state and acceptance evidence: [store-gallery report](reports/2026-10-12-store-gallery-verification.md). New SKU account provisioning and hosted bridge compatibility remain external prerequisites; current availability is explicit in addon/config.js READY_PASS_SKUS.
+
+Latest UI state: [Four date design stacks](reports/2026-10-12-date-stacks-verification.md). Eight Store tabs; 19 included widgets; Date Designs contains four purchasable style stacks, each with 24 static designs (8 Day, 8 Week, 8 Month). All shipped copy and preview artwork is English. Supporter's previous benefits presentation is restored. The last checks before the user's instruction to stop testing were 138/138 tests and a 479-file demo build. Local visual PASS; overall PARTIAL because installed-extension behavior and real purchases remain unverified. The four date-stack product accounts are missing, and the hosted bridge requires this compatibility update. No transactions or deployment were performed. Testing is stopped; independent verification is handed to another agent.
+
 ## QUESTIONS FOR OWNER
 
 1. **Base ref = store release?** A4 builds the demo from `fix/search-api-1.3.1` (manifest 1.3.1, commit 2c460b2 "chore(release): prepare 1.3.1", pushed to origin). Is 1.3.1 what is live in the Web Store, or is it 1.3.0/1.2.x? Override with `HEARTH_BASE_REF=<ref> npm run build:demo`.

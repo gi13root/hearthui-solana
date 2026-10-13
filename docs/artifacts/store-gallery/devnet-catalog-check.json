@@ -1,0 +1,41 @@
+{
+  "network": "https://api.devnet.solana.com",
+  "readOnly": true,
+  "catalog": [
+    {
+      "sku": "theme_aurora",
+      "pda": "HcKFbq3V5WNzqajH8mdqf9ovXfwsetUyRBTBDtJnje52",
+      "status": "ready"
+    },
+    {
+      "sku": "theme_dune",
+      "pda": "7gPWY91N1x1XzrWwcBvKgviQbFmobnouW2EEKuxdTeNu",
+      "status": "ready"
+    },
+    {
+      "sku": "icons_glass",
+      "pda": "BAZ28LvSqcVnUQ2ybgzmVcvr6qGwdS5c5oq8FJEnXjDe",
+      "status": "ready"
+    },
+    {
+      "sku": "theme_midnight",
+      "pda": "DqokJzsokmvwF1mSre5S7vhXuqdeJSUmUFovgMP7nzJ4",
+      "status": "missing"
+    },
+    {
+      "sku": "icons_mono",
+      "pda": "FGBVvoassBgj14Uc9CaKcmaqoz7LSrNLqwEfecXv6X1Q",
+      "status": "missing"
+    },
+    {
+      "sku": "clock_orbit",
+      "pda": "FhXQoxXryKPEijrsmD1mLnQxy4Wm3SB1iNYzfexpdKt2",
+      "status": "missing"
+    },
+    {
+      "sku": "bundle_focus",
+      "pda": "FF7EJGEHoG451EBGVyNrYrdv5b247BtWAsHRPBfhZt6k",
+      "status": "missing"
+    }
+  ]
+}

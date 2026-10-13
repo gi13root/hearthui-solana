@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hearth Store — Community (concept)</title>
+<style>
+  :root{--glass:rgba(22,30,24,.62);--line:rgba(255,255,255,.12);--txt:#eef2ec;--sub:rgba(238,242,236,.62);--acc:#8fd4a8;--acc2:#5fb4ff;--pill:rgba(255,255,255,.08)}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;color:var(--txt)}
+  body{background:#1d2a20 url("../../dist/hearthui-solana-demo/assets/wallpapers/themes/green.avif") center/cover fixed;display:flex;align-items:center;justify-content:center;padding:24px}
+  .win{width:min(1240px,94vw);background:var(--glass);backdrop-filter:blur(28px) saturate(1.2);-webkit-backdrop-filter:blur(28px) saturate(1.2);border:1px solid var(--line);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden}
+  header{display:flex;align-items:center;gap:14px;padding:22px 28px 10px}
+  header h1{font-size:28px;font-weight:600;margin:0;letter-spacing:-.01em}
+  .bag{width:30px;height:30px;border:2px solid var(--txt);border-radius:8px;position:relative}
+  .bag:before{content:"";position:absolute;left:7px;top:-8px;width:12px;height:9px;border:2px solid var(--txt);border-bottom:0;border-radius:8px 8px 0 0}
+  .concept{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#ffd58a;border:1px solid rgba(255,213,138,.45);padding:5px 10px;border-radius:999px}
+  .right{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .coin{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4 0 18%,#f5c451 40%,#c8902a 100%);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),0 0 0 1.5px rgba(255,230,160,.6);display:inline-block}
+  .claim{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 10px;border-radius:999px;border:1px solid rgba(245,196,81,.55);background:rgba(245,196,81,.16);color:var(--txt);font-weight:600;font-size:14px}
+  .bal{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);font-size:14px}
+  nav{display:flex;gap:8px;padding:8px 28px 16px;overflow-x:auto}
+  nav span{padding:8px 16px;border-radius:12px;color:var(--sub);white-space:nowrap}
+  nav span.on{background:rgba(143,212,168,.16);color:var(--txt);border:1px solid rgba(143,212,168,.35)}
+  main{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;padding:4px 28px 22px}
+  .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:20px;padding:20px}
+  h2{font-size:18px;font-weight:600;margin:0 0 4px}
+  .sub{color:var(--sub);font-size:13px}
+  .opt{display:grid;grid-template-columns:96px 1fr auto;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+  .opt:first-of-type{border-top:0}
+  .thumb{width:96px;height:60px;border-radius:12px;background-size:cover;background-position:center}
+  .name{font-weight:600}
+  .bar{height:8px;border-radius:99px;background:var(--pill);margin-top:8px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+  .meta{display:flex;justify-content:space-between;color:var(--sub);font-size:12px;margin-top:6px}
+  .btn{border:1px solid rgba(143,212,168,.45);background:rgba(143,212,168,.14);color:var(--txt);padding:9px 14px;border-radius:12px;font-size:13px;white-space:nowrap}
+  .btn.voted{background:var(--acc);color:#10251a;border-color:var(--acc);font-weight:600}
+  .chat{display:flex;flex-direction:column;height:100%}
+  .msgs{flex:1;display:flex;flex-direction:column;gap:12px;margin:14px 0}
+  .m{display:flex;gap:10px}
+  .av{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;color:#10251a}
+  .m b{font-size:13px}.m small{color:var(--sub);font-size:11px;margin-left:6px}
+  .m p{margin:2px 0 0;font-size:14px}
+  .input{display:flex;gap:8px}
+  .input div{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--sub);font-size:13px}
+  footer{display:flex;align-items:center;gap:14px;border-top:1px solid var(--line);padding:14px 28px;color:var(--sub);font-size:13px}
+  footer .chip{margin-left:auto;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--txt)}
+  footer .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-left:6px}
+  .pts{color:var(--acc);font-weight:600}
+</style>
+</head>
+<body>
+<div class="win">
+  <header>
+    <div class="bag"></div><h1>Hearth Store</h1>
+    <span class="concept">Concept · sample data</span>
+    <div class="right"><span class="bal"><span class="coin"></span>290</span><button class="claim"><span class="coin"></span>+3 to claim</button></div>
+  </header>
+  <nav>
+    <span>Featured</span><span>Themes</span><span>Icon Packs</span><span>Clock Styles</span><span>Live Wallpapers</span><span>Bundles</span>
+    <span class="on">Community</span><span>Points</span><span>Supporter</span>
+  </nav>
+  <main>
+    <section class="card">
+      <h2>Vote: what should we ship next?</h2>
+      <div class="sub">One vote per account · costs 10 points · winner ships next month, voters get it free</div>
+      <div class="opt" style="margin-top:12px">
+        <div class="thumb" style="background-image:url('../../dist/hearthui-solana-demo/assets/wallpapers/thumbs/space-abstract/jupiter.webp')"></div>
+        <div><div class="name">Live Wallpaper: Deep Space</div>
+          <div class="bar"><i style="width:46%"></i></div>
+          <div class="meta"><span>46% · 128 votes</span><span>Theme</span></div></div>
+        <button class="btn voted">Voted ✓</button>
+      </div>
+      <div class="opt">
+        <div class="thumb" style="background:linear-gradient(135deg,#1b2a3a,#5fb4ff)"></div>
+        <div><div class="name">Widget: Habit Tracker (small / medium / large)</div>
+          <div class="bar"><i style="width:31%"></i></div>
+          <div class="meta"><span>31% · 86 votes</span><span>Feature</span></div></div>
+        <button class="btn">Vote · 10 pts</button>
+      </div>
+      <div class="opt">
+        <div class="thumb" style="background-image:url('../../dist/hearthui-solana-demo/assets/wallpapers/thumbs/landscapes/coast-waves.webp')"></div>
+        <div><div class="name">Theme: Coastal Morning</div>
+          <div class="bar"><i style="width:15%"></i></div>
+          <div class="meta"><span>15% · 42 votes</span><span>Theme</span></div></div>
+        <button class="btn">Vote · 10 pts</button>
+      </div>
+      <div class="opt">
+        <div class="thumb" style="background:linear-gradient(135deg,#2a1440,#ff8a5c)"></div>
+        <div><div class="name">Icon Pack: Hand-drawn</div>
+          <div class="bar"><i style="width:8%"></i></div>
+          <div class="meta"><span>8% · 22 votes</span><span>Icons</span></div></div>
+        <button class="btn">Vote · 10 pts</button>
+      </div>
+    </section>
+    <section class="card chat">
+      <h2>Community chat</h2>
+      <div class="sub">Suggest themes and features · powered by IPFPS realtime</div>
+      <div class="msgs">
+        <div class="m"><div class="av" style="background:#8fd4a8">MK</div><div><b>maya_k</b><small>2m</small><p>Deep Space but with slow parallax please 🙏</p></div></div>
+        <div class="m"><div class="av" style="background:#5fb4ff">JD</div><div><b>jdev</b><small>5m</small><p>Habit tracker in the large size with a weekly grid would be perfect</p></div></div>
+        <div class="m"><div class="av" style="background:#ffd58a">AR</div><div><b>aria</b><small>9m</small><p>Voted Coastal Morning — matches the Glass icons</p></div></div>
+        <div class="m"><div class="av" style="background:#f0997b">HU</div><div><b>Hearth Team</b><small>12m</small><p>Voting closes Friday. Winner ships free to everyone who voted.</p></div></div>
+      </div>
+      <div class="input"><div>Suggest a theme or feature…</div><button class="btn">Send</button></div>
+    </section>
+  </main>
+  <footer>
+    <span>Your points: <span class="pts">290</span> · earn more with daily check-ins and focus sessions</span>
+    <span class="chip">◎ Phantom · Connected<span class="dot"></span></span>
+  </footer>
+</div>
+</body>
+</html>

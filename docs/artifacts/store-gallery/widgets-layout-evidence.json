@@ -1,0 +1,34 @@
+[
+  {
+    "columns": 3,
+    "height": 855,
+    "overflow": false,
+    "subtabsScroll": false,
+    "viewport": 1440,
+    "width": 1171
+  },
+  {
+    "columns": 2,
+    "height": 665,
+    "overflow": false,
+    "subtabsScroll": false,
+    "viewport": 1024,
+    "width": 805
+  },
+  {
+    "columns": 1,
+    "height": 806,
+    "overflow": false,
+    "subtabsScroll": false,
+    "viewport": 700,
+    "width": 676
+  },
+  {
+    "columns": 1,
+    "height": 750,
+    "overflow": false,
+    "subtabsScroll": true,
+    "viewport": 390,
+    "width": 366
+  }
+]

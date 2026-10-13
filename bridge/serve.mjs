@@ -12,7 +12,8 @@ createServer(async (req, res) => {
   if (p === '/') { res.writeHead(302, { Location: '/bridge/' }); return res.end(); }
   if (p.endsWith('/')) p += 'index.html';
   const rel = normalize(p).replace(/^[/\\]+/, '');
-  if (rel.includes('..') || !SERVE.some((d) => rel.startsWith(d + sep) || rel.startsWith(d + '/'))) { res.writeHead(404); return res.end('not found'); }
+  const catalogAsset=rel==='addon'+sep+'store-date-concepts.js' || rel==='addon/store-date-concepts.js';
+  if (rel.includes('..') || (!catalogAsset && !SERVE.some((d) => rel.startsWith(d + sep) || rel.startsWith(d + '/')))) { res.writeHead(404); return res.end('not found'); }
   try {
     const file = join(ROOT, rel); if (!(await stat(file)).isFile()) throw 0;
     res.writeHead(200, { 'Content-Type': TYPES[extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store' });

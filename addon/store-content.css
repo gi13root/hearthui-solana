@@ -1,0 +1,61 @@
+/* Addon-owned procedural content. Only html classes are toggled; no core state is rewritten.
+   Theme layer is created by store.js, matching Aurora/Dune's existing layering. */
+html.hs-theme-midnight {
+  --acc: oklch(82% .13 205) !important;
+  --acc-glow: oklch(82% .13 205 / .35) !important;
+  --acc-dim: oklch(82% .13 205 / .13) !important;
+}
+html.hs-theme-midnight #hs-theme-layer {
+  background: radial-gradient(95% 65% at 80% 5%, #075b77 0%, transparent 60%),
+    radial-gradient(70% 90% at 10% 100%, #132342 0%, transparent 70%),
+    linear-gradient(155deg, #020714, #101b35);
+}
+.hs-sw-theme_midnight { background: linear-gradient(135deg, #020714, #101b35 55%, #67e8f9); }
+.hs-sw-icons_mono { background: linear-gradient(135deg, #f1f5f9, #475569); }
+.hs-sw-clock_orbit { background: radial-gradient(circle, #cffafe 0%, #0891b2 45%, #0c1e30 75%); }
+.hs-sw-bundle_focus { background: linear-gradient(135deg, #1fd1a5, #8a5cff 50%, #67e8f9); }
+
+/* Actual core tiles: #dock .app-icon and .appgrid-wrap .appgrid-app-icon.
+   Filter only the icon image/fallback so hover and magnification remain intact. */
+html.hs-icons-mono #dock .app-icon,
+html.hs-icons-mono .appgrid-wrap .appgrid-app-icon {
+  background: rgba(226, 232, 240, .14) !important;
+  border: 1px solid rgba(226, 232, 240, .32) !important;
+  border-radius: 26%;
+}
+html.hs-icons-mono #dock .app-icon .dock-favicon,
+html.hs-icons-mono #dock .app-icon .dock-fallback,
+html.hs-icons-mono .appgrid-wrap .appgrid-app-icon .ag-favicon,
+html.hs-icons-mono .appgrid-wrap .appgrid-app-icon .ag-fallback {
+  filter: grayscale(1) contrast(1.1) !important;
+  color: #e2e8f0 !important;
+}
+
+/* Existing widget-clock.css variables, overridden locally because clock.js sets inline values.
+   SVG digits use a presentation fill; the scoped material rule gives Orbit visible color
+   regardless of the saved core digit style. Rim glyphs retain their stroke-only material. */
+html.hs-clock-orbit .clk-widget {
+  --clk-acc: #67e8f9 !important;
+  --fc-digit-color: #cffafe !important;
+  --clk-digit-opacity: 1 !important;
+}
+html.hs-clock-orbit .clk-face {
+  --clk-g1: rgba(103, 232, 249, .65) !important;
+  --clk-g2: rgba(34, 211, 238, .24) !important;
+  --clk-glass-stroke-digit-color: rgba(207, 250, 254, .9) !important;
+  --clk-glass-stroke-digit-w: .7px !important;
+}
+html.hs-clock-orbit .clk-face-bg-layer {
+  background: radial-gradient(ellipse at 50% 55%, rgba(8, 145, 178, .2), rgba(5, 15, 29, .48) 72%) !important;
+}
+html.hs-clock-orbit .clk-face .clk-svg-time:not(.clk-svg-material-rim) {
+  fill: #cffafe !important;
+  fill-opacity: .92;
+  filter: drop-shadow(0 0 7px var(--clk-g1)) drop-shadow(0 0 16px var(--clk-g2));
+}
+html.hs-clock-orbit .clk-face .fc-digit-num,
+html.hs-clock-orbit .clk-face .nw-time,
+html.hs-clock-orbit .clk-face .clk-time-row {
+  color: var(--fc-digit-color) !important;
+  text-shadow: 0 0 12px var(--clk-g1);
+}

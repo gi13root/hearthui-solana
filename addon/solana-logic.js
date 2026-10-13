@@ -97,7 +97,7 @@
       started_at: new Date(ended - minutes * 60000).toISOString() };
   }
   function parseLeaderboard(json, limit) {
-    var list = json && (json.entries || json.leaderboard || (Array.isArray(json) ? json : null));
+    var list = json && (json.top_players || json.entries || json.leaderboard || (Array.isArray(json) ? json : null));
     if (!Array.isArray(list)) return [];
     return list.map(function (e, i) {
       return { rank: Number(e.rank) || i + 1, name: e.nickname || e.display || e.name || shortAddress(e.address || ''), minutes: Number(e.minutes) || (e.score != null ? Math.round(Number(e.score) / 10) : 0) };

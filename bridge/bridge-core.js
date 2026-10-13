@@ -6,7 +6,13 @@
     theme_aurora: { price: '1.99', amount: 1990000n, method: 'pass' },
     theme_dune: { price: '1.99', amount: 1990000n, method: 'pass' },
     icons_glass: { price: '2.99', amount: 2990000n, method: 'pass' },
+    theme_midnight: { price: '1.99', amount: 1990000n, method: 'pass' },
+    icons_mono: { price: '2.99', amount: 2990000n, method: 'pass' },
+    clock_orbit: { price: '0.99', amount: 990000n, method: 'pass' },
+    bundle_focus: { price: '4.99', amount: 4990000n, method: 'pass' },
   };
+  var dates = root.HearthDateConcepts || (typeof require === 'function' ? require('../addon/store-date-concepts.js') : null);
+  if (dates) dates.items.forEach(function (item) { CATALOG[item.sku] = {price:item.price.toFixed(2),amount:BigInt(Math.round(item.price * 1000000)),method:'pass',label:item.name,kind:item.kind}; });
   var ACTION_METHOD = { pay: 'usdc', buy: 'pass' };
   var CONFIG = {
     extensionId: 'pbacffgkgjlkbnafpmakmmppcikgegpf',
@@ -24,7 +30,7 @@
     if (action !== 'signin' && !ACTION_METHOD[action]) return { error: 'unknown_action' };
     if (action === 'signin') return { action: action, sku: null };
     if (!sku) return { error: 'missing_sku' };
-    if (!CATALOG[sku]) return { error: 'unknown_sku' };
+    if (!Object.prototype.hasOwnProperty.call(CATALOG, sku)) return { error: 'unknown_sku' };
     if (CATALOG[sku].method !== ACTION_METHOD[action]) return { error: 'wrong_method' };
     return { action: action, sku: sku };
   }

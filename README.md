@@ -1,5 +1,9 @@
 # HearthUI × Solana — a creator-owned theme economy on the most-seen screen
 
+**Demo catalog on Solana devnet.** The Hearth Store gallery uses the demo author **Hearth Originals**. Included HearthUI themes and wallpaper packs remain free. Aurora, Dune and Glass have verified devnet theme accounts; Midnight, Mono, Orbit, Focus Bundle and Supporter currently show Soon. See [gallery verification and remaining prerequisites](docs/reports/2026-10-12-store-gallery-verification.md).
+
+The Store includes 19 working widgets and four Date Designs stacks: Nothing OS, Liquid Glass, CRT Terminal, and Color E-Ink. Each stack contains 24 static designs with English previews and one Buy action for the whole stack. Supporter's benefits presentation is restored. Real date-stack purchases require four product accounts and the updated hosted checkout. See the [current implementation and verification handoff](docs/reports/2026-10-12-date-stacks-verification.md).
+
 HearthUI is a minimalist, Android-style **new-tab launcher for Chrome** (widgets, dock,
 live wallpapers, themes) that is already live in the Chrome Web Store. This repository is
 the **Colosseum Crypto World's Fair (Solana track)** add-on: it lets people sign in with a

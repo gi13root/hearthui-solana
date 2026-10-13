@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-13T03:01:45.837Z",
+  "readOnly": true,
+  "program": "4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA",
+  "rows": [
+    {
+      "sku": "date_nothing_stack",
+      "pda": "HPe99NVi11h493oHWHxsPHywgjcDQHeh5WqKgpTAJutg",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_stack",
+      "pda": "7zaSA2dbd6PFsjteaqUKZk5g42ZUKodP2u2MjsDFnfvW",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_stack",
+      "pda": "7Q1MNQEQTF4tkxjpR6dKHZAEV6U8ps3KNGRW1sCg6y1b",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_stack",
+      "pda": "Bu9ySFcvzkGnSwjHV51MEjdkJFrLP5ooTYq9WEjsX3yV",
+      "exists": false
+    }
+  ]
+}

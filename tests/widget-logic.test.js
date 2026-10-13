@@ -7,8 +7,9 @@ test('config matches contract constants', () => {
   assert.strictEqual(C.NETWORK, 'devnet');
   assert.strictEqual(C.RPC_URL, 'https://api.devnet.solana.com');
   assert.strictEqual(C.USDC_MINT, '4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU');
-  assert.deepStrictEqual(C.CATALOG.map(i => [i.sku, i.price, i.method]), [
-    ['supporter', 4.99, 'usdc'], ['theme_aurora', 1.99, 'pass'], ['theme_dune', 1.99, 'pass'], ['icons_glass', 2.99, 'pass']]);
+  assert.deepStrictEqual(C.CATALOG.filter(i => i.kind !== 'concept-stack').map(i => [i.sku, i.price, i.method]), [
+    ['supporter', 4.99, 'usdc'], ['theme_aurora', 1.99, 'pass'], ['theme_dune', 1.99, 'pass'], ['icons_glass', 2.99, 'pass'],
+    ['theme_midnight', 1.99, 'pass'], ['icons_mono', 2.99, 'pass'], ['clock_orbit', 0.99, 'pass'], ['bundle_focus', 4.99, 'pass']]);
   assert.strictEqual(C.bridgeUrl('buy', 'theme_dune'), 'https://heartui.ipfps.org/bridge/#action=buy&sku=theme_dune');
 });
 
@@ -55,7 +56,7 @@ test('price parsing + cache', () => {
 
 test('catalog gating', () => {
   const items = L.storeItems(C.CATALOG, ['theme_dune', 'bogus']);
-  assert.deepStrictEqual(items.map(i => [i.sku, i.owned]), [['supporter', false], ['theme_aurora', false], ['theme_dune', true], ['icons_glass', false]]);
+  assert.deepStrictEqual(items.filter(i => i.kind !== 'concept-stack').map(i => [i.sku, i.owned]), [['supporter', false], ['theme_aurora', false], ['theme_dune', true], ['icons_glass', false], ['theme_midnight', false], ['icons_mono', false], ['clock_orbit', false], ['bundle_focus', false]]);
   assert.strictEqual(L.bridgeActionFor(C.CATALOG[0]), 'pay');
   assert.strictEqual(L.bridgeActionFor(C.CATALOG[1]), 'buy');
   assert.deepStrictEqual(L.normalizeOwned({ skus: ['icons_glass'] }), ['icons_glass']);
@@ -82,4 +83,10 @@ test('fitHero shrinks the hero so the text fits the card width (aw §15), never 
   assert.ok(px < 130 && px * 0.62 * 7 <= 180 * 0.88 + 0.5, String(px));
   assert.strictEqual(L2.fitHero(130, 0, '$1'), 130);                  // unknown width: no change
   assert.strictEqual(L2.fitHero(40, 20, '$99999.99'), 16);            // floor: readable minimum
+});
+
+test('leaderboard parser reads live IPFPS top_players shape', () => {
+  const L3 = require('../addon/solana-logic.js');
+  const rows = L3.parseLeaderboard({ top_players: [{ id: 'a', rank: 1, name: 'Player One', score: 250, level: 2 }], my_rank_info: null, has_more: false }, 5);
+  assert.deepStrictEqual(rows.map(r => [r.rank, r.name, r.minutes]), [[1, 'Player One', 25]]);
 });

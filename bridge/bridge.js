@@ -91,6 +91,7 @@
     for (var i = 0; i < 10; i++) {
       var r = await api('POST', '/api/hearth/claim', { sku: sku, tx_signature: sig, chain: 'solana-devnet' }, state.jwt);
       if (r.ok) return r.body;
+      if (r.status === 404 && r.body && r.body.error !== 'tx_not_found') return null; // no claim endpoint on this IPFPS: chain receipt is the source of truth
       if (r.status === 404 || r.status === 503 || r.status === 429) { await new Promise(function (x) { setTimeout(x, 3000); }); continue; }
       throw Object.assign(new Error('Claim failed: ' + (r.body.error || r.status) + (r.body.reason ? ' (' + r.body.reason + ')' : '')), { code: r.body.error || 'claim_failed' });
     }
@@ -139,11 +140,11 @@
     $('env').textContent = 'Devnet · IPFPS: ' + (window.HEARTH_IPFPS_MOCK_ACTIVE ? 'mock (local)' : CFG.ipfpsBase);
     if (req.error) { setStatus('Invalid link: ' + req.error, 'err'); return; }
     var titles = { signin: 'Sign in with Phantom', pay: 'Support HearthUI', buy: 'Buy theme pass' };
-    $('title').textContent = titles[req.action];
+    $('title').textContent = req.action === 'buy' && C.CATALOG[req.sku].kind === 'concept-stack' ? 'Buy date stack' : titles[req.action];
     if (req.sku) {
       var s = $('summary'); s.hidden = false;
       s.innerHTML = '<span></span><b></b>';
-      s.firstChild.textContent = req.sku; s.lastChild.textContent = C.CATALOG[req.sku].price + ' USDC';
+      s.firstChild.textContent = C.CATALOG[req.sku].label || req.sku; s.lastChild.textContent = C.CATALOG[req.sku].price + ' USDC';
     }
     STEPS[req.action].forEach(function (t) { var li = document.createElement('li'); li.textContent = t; $('steps').appendChild(li); });
     var btn = $('go');

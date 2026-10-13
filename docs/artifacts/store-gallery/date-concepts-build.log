@@ -1,0 +1,72 @@
+
+> build:demo
+> node scripts/build-demo.mjs
+
+base: /Volumes/minix/elias/Documents/home-screen-launcher-v3 @ fix/search-api-1.3.1 (2c460b2) via git archive (working tree untouched)
+
+  Production build → ../base-dist/
+  192 files copied, 5 stripped of @authoring code, 81 authoring files excluded.
+  107 KB of CSS comments and indentation removed from the shipped stylesheets.
+  0 KB saved by minifying shipped JS (names kept).
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ⚠  esbuild not installed — JS shipped unminified (npm install)
+  ✓ No authoring references leaked into the build.
+  ✓ dist/ size: 13703 KB of 29297 KB budget.
+
+  ✓ styles injected: addon/addon.css, addon/store-content.css, addon/store-gallery.css
+  ✓ scripts injected: addon/store-date-concepts.js, addon/config.js, addon/solana-session.js, program/client/hearth-pass-client.js, addon/solana-logic.js, addon/store-catalog.js, addon/store-widget-catalog.js, addon/store-supporter.js, addon/store.js, addon/store-gallery.js, addon/store-entry.js, addon/widgets.js
+  ✓ extension id pbacffgkgjlkbnafpmakmmppcikgegpf
+  ✓ dist/hearthui-solana-demo/ + dist/hearthui-solana-demo.zip (471 files)

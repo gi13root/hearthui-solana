@@ -27,11 +27,11 @@ test('apply is gated by ownership and persisted', async () => {
   const st = fakeStorage({ [C.STORAGE_OWNED]: ['theme_aurora'] });
   const c = createStoreController({ config: C, storage: st, openBridge() {} });
   await c.ready;
-  assert.strictEqual(c.apply('theme_dune'), false);
-  assert.strictEqual(c.apply('theme_aurora'), true);
-  assert.deepStrictEqual(st.data[C.STORAGE_APPLIED], { theme: 'theme_aurora', icons: null });
-  assert.strictEqual(c.apply(null, 'theme'), true);
-  assert.deepStrictEqual(st.data[C.STORAGE_APPLIED], { theme: null, icons: null });
+  assert.strictEqual(await c.apply('theme_dune'), false);
+  assert.strictEqual(await c.apply('theme_aurora'), true);
+  assert.deepStrictEqual(st.data[C.STORAGE_APPLIED], { theme: 'theme_aurora', icons: null, clock: null });
+  assert.strictEqual(await c.apply(null, 'theme'), true);
+  assert.deepStrictEqual(st.data[C.STORAGE_APPLIED], { theme: null, icons: null, clock: null });
 });
 
 test('unlock reacts to storage change without reload', async () => {
@@ -49,5 +49,5 @@ test('applied theme dropped when no longer owned', async () => {
   const st = fakeStorage({ [C.STORAGE_OWNED]: ['theme_dune'], [C.STORAGE_APPLIED]: { theme: 'theme_dune', icons: 'icons_glass' } });
   const c = createStoreController({ config: C, storage: st, openBridge() {} });
   await c.ready;
-  assert.deepStrictEqual(c.state().effective, { theme: 'theme_dune', icons: null, supporter: false });
+  assert.deepStrictEqual(c.state().effective, { theme: 'theme_dune', icons: null, clock: null, supporter: false });
 });

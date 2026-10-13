@@ -12,8 +12,11 @@
     treasury: '7jhqV2NTmWJayyUFUKJ8Xv97EJovAEqACzqCLXXCGnoV', // ADMIN in lib.rs (devnet deployer)
     // Kill switch (plan M): set false and every `pass` sku is sold via direct `usdc`.
     passEnabled: true,
-    passSkus: ['theme_aurora', 'theme_dune', 'icons_glass'],
+    passSkus: ['theme_aurora', 'theme_dune', 'icons_glass', 'theme_midnight', 'icons_mono', 'clock_orbit', 'bundle_focus'],
   };
+  var dates = root.HearthDateConcepts || (typeof require === 'function' ? require('../../addon/store-date-concepts.js') : null);
+  if (dates) config.passSkus = config.passSkus.concat(dates.items.map(function (item) { return item.sku; }));
+  function isDateConcept(sku) { return /^date_(nothing|liquid|terminal|eink)_stack$/.test(sku); }
   var TOKEN_PROGRAM = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
   var ATA_PROGRAM = 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL';
   var SYSTEM_PROGRAM = '11111111111111111111111111111111';
@@ -181,11 +184,12 @@
     return r;
   }
   async function isOwned(rpc, wallet, sku) {
-    try { return (await fetchPass(rpc, wallet, sku)) !== null; } catch (e) { return false; }
+    // RPC/decoding errors are unknown ownership, never evidence of absence.
+    return (await fetchPass(rpc, wallet, sku)) !== null;
   }
 
   function methodFor(sku) {
-    return config.passEnabled && config.passSkus.indexOf(sku) >= 0 ? 'pass' : 'usdc';
+    return config.passEnabled && (config.passSkus.indexOf(sku) >= 0 || isDateConcept(sku)) ? 'pass' : 'usdc';
   }
   function configure(o) { for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) config[k] = o[k]; return config; }
 
@@ -195,12 +199,21 @@
     var res = await rpcCall(rpc, 'getAccountInfo', [pda, { encoding: 'base64', commitment: 'confirmed' }]);
     var acc = res && res.value;
     if (!acc || acc.owner !== config.programId) throw Object.assign(new Error('theme_not_found: ' + sku), { code: 'theme_not_found' });
-    return base58Encode(b64(acc.data[0]).slice(8, 40));
+    var data = b64(acc.data[0]);
+    if (isDateConcept(sku)) {
+      var expectedDiscriminator = await discriminator('account', 'Theme');
+      if (data.length !== 51 || !expectedDiscriminator.every(function (byte, index) { return data[index] === byte; })) throw new Error('theme_layout_mismatch');
+      var view = new DataView(data.buffer, data.byteOffset, data.byteLength);
+      if (view.getBigUint64(40, true) !== 990000n) throw new Error('theme_price_mismatch');
+      if (view.getUint16(48, true) !== 500) throw new Error('theme_fee_mismatch');
+    }
+    return base58Encode(data.slice(8, 40));
   }
 
   // Interface the bridge and the extension session expect (see docs/CONTRACT.md handoffs).
   root.HearthPassClient = {
     buildBuyPassIx: async function (o) {
+      if (typeof o.sku === 'string' && o.sku.indexOf('date_') === 0 && !isDateConcept(o.sku)) throw new Error('unknown_sku');
       var creator = await fetchThemeCreator(o.rpc, o.sku);
       return buildBuyPassInstruction({ buyer: o.buyer, sku: o.sku, creator: creator, treasury: config.treasury });
     },

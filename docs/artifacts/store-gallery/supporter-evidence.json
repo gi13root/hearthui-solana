@@ -1,0 +1,66 @@
+{
+  "desktop": {
+    "active": "hsg-supporter-title",
+    "benefits": 4,
+    "cards": 0,
+    "columns": "428px 428px",
+    "dialog": [
+      1171.1953125,
+      855
+    ],
+    "disabled": true,
+    "overflowX": false,
+    "presentation": true,
+    "scrollTop": 0,
+    "tab": "tab:supporter",
+    "viewerHidden": true,
+    "viewport": [
+      1440,
+      900
+    ]
+  },
+  "mobile": {
+    "columns": "315px",
+    "dialog": [
+      366,
+      750
+    ],
+    "disabled": true,
+    "overflowX": false,
+    "scrollTop": 0,
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  "explore": {
+    "cards": 19,
+    "dialog": [
+      366,
+      750
+    ],
+    "focus": "tab:widgets",
+    "scrollTop": 0,
+    "tab": "tab:widgets"
+  },
+  "console": [],
+  "network": {
+    "truncated": true,
+    "hasMore": false,
+    "failures": [],
+    "supporterAssets": [
+      {
+        "url": "http://localhost:3435/addon/store-gallery.css",
+        "status": 200
+      },
+      {
+        "url": "http://localhost:3435/addon/store-supporter.js",
+        "status": 200
+      },
+      {
+        "url": "http://localhost:3435/addon/store-gallery.js",
+        "status": 200
+      }
+    ]
+  }
+}

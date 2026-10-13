@@ -1,0 +1,487 @@
+{
+  "checkedAt": "2026-10-13T02:48:12.159Z",
+  "readOnly": true,
+  "program": "4reMmBoV39ykPDMtm8XqrGxazE332kDx2KcJvAVriivA",
+  "rows": [
+    {
+      "sku": "date_nothing_day_1",
+      "pda": "4h5PJrUV6egY4xw2VSxCRMcW7MeXmb3oWX9VgJSwSDf7",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_2",
+      "pda": "AxZiHto4nZdNtdUZ4viYbZdQmQ7aLL5U6pad9K6vSW8y",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_3",
+      "pda": "3i7JhcFh4Bz7d3VyTQkBaB4S4dRPYz2bkQCXxEHoteHp",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_4",
+      "pda": "5aoSQC9S4pBwmQPKbYnJ7aV8cRQRtMRCHg1eDAcekxui",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_5",
+      "pda": "EXtuBttGWDirNNsyKpg2tctKyCDGH5xdTCGxZf3s5Mr",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_6",
+      "pda": "D4nNNbEPs5k47vBTbzatcZCGriTZkJV3unYtbHqpK54j",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_7",
+      "pda": "4RBLLjtaxu2Nuyj3X8m5ysoURzLWEuK55D2m5wAvrErN",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_day_8",
+      "pda": "8iTdPsAGgaKVuoFw8ptmkVSzJatNVws7UvubJPw8d6H6",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_1",
+      "pda": "4BiTjJtFssER5tivkcKFSDTmppSvH7KgY9HbNqoyJHyX",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_2",
+      "pda": "2WS6nZwTrgmuxky4YAKUAen2MjwoDpjRFK6p7wAosYFd",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_3",
+      "pda": "DBEe6skiwRYoa4qPEbK62MeWnwCTYAoEbS1Em9VFfUhs",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_4",
+      "pda": "CzkheWqZzZtFVTQhiZKBeWY3JpEsK8HVmTcaLWEC94XL",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_5",
+      "pda": "BC225sJZutMCAEwNcDtWjJ1twVwwz8feQVF3Hcuo9CTc",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_6",
+      "pda": "CN9VPvka1MhRMV5JDgWmCFCCtxiRLGPBCypC7fCTpVAj",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_7",
+      "pda": "C89ANJyBxrS7qhhPimLE2wPLhu7wttEFg1ZXiorWK8Xc",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_week_8",
+      "pda": "2bQ7rPptxxKPYtvQMt5oZq9CmLJjQyrnxvr1y4g2ckhu",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_1",
+      "pda": "BFUonX6QVgFFQzGATQkezV7XRQHFKENNnr5BN39SwMMc",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_2",
+      "pda": "AXiQMCez5ULQmC4AgaAi9BcjNv7GznTJXHkGEajF5QVT",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_3",
+      "pda": "9JtpcQteB9mT2CFEZ9X7sYDjRbkmwTYan5H5mkmWiodX",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_4",
+      "pda": "DTMwCeHcQbUJLurnHPgX4oip5ZkNHcyqssXkbuGU3DsQ",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_5",
+      "pda": "5AdTU5KnV6YHH8Jwcp63BKjrG3NrmMgLZrKVCTrPUfLG",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_6",
+      "pda": "5FaoJrazjUQrCbeLypTki4Xa7zG5UHrWXYTzFkf93JdR",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_7",
+      "pda": "F1HDxchabAamEgS68k6mePJWFkYSJ7eDFhjLNeJSzN1g",
+      "exists": false
+    },
+    {
+      "sku": "date_nothing_month_8",
+      "pda": "FRxPYJgQPuc5n19rFW2Bk72EqHmWu7ZT9Eob1mJwE1jd",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_1",
+      "pda": "HA8XZGcRRciXhNoWTZYcybBPDrAURbdkoxzhkNLQ1d9W",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_2",
+      "pda": "DTzMwRXYrMC6mSo6UAta3pvHENjaacGfRmC6eeFUMJBY",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_3",
+      "pda": "EcHmRRKvZYvVN5cKSs9thoVdfr1ERexdcySZS6V24s4u",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_4",
+      "pda": "C3d9LZZkEKBATWbm5EBWaAVyxWKK1EwVRFbVFH4uwF8o",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_5",
+      "pda": "AF59LWiqv3hggS6f4Qoer26c6QnqzVpNwBxvYnhcR94U",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_6",
+      "pda": "DTsZkjrDKYU11cxWKQWF9Rvnu446FsZjhzx9rSPei3F4",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_7",
+      "pda": "FNxn8j3saPDBKoBYnSY4nvC9ymaNcLb4YEzrMf8RW9pc",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_day_8",
+      "pda": "3apUaarPhqc4aTpFV2SsErhin5zLD4rtuRaByGBia7Zj",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_1",
+      "pda": "FCBzKXGpnAeSJNGYVfCqinc5ZjwrMap7kfeN4Do13329",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_2",
+      "pda": "F89z36XYq3WdmD3uS1VUmAAc2BQD6E61SobMyZ2rEkZS",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_3",
+      "pda": "91UxLxu6mkoiGFXKuxVvCFZHB4h4E9i4ytFXXCR8hVLi",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_4",
+      "pda": "DLBjuig3zyH9dwuajjKxW3MxDdfYWfBGJvAeua5Tg3MV",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_5",
+      "pda": "Fk4mCySdWStKR3YE1kpAGgdz7iH6Q8nb9RsjMQ8zycLn",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_6",
+      "pda": "6LFynEM2bRm4WoYuzoebjL2AvrdUsiNzrqh7EELsjMFN",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_7",
+      "pda": "EdTL1ejA6JuY8kxW8oTbarLgLZMSLa8ELbyY694YB632",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_week_8",
+      "pda": "9eAQ6fnJ772h5CjWuh8E9N8HbEyjcfdmJqH4x3QMoYi",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_1",
+      "pda": "AtMNHq8GhNLoDGm75ovJR4xo5asvC7hZ5Mrcn7xd71gE",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_2",
+      "pda": "6ThwzqUp3QFmnbgPEdxTQjydvaaqJRAnbXUMPkPKRTcK",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_3",
+      "pda": "GMVGcZHFYzvEt66PtXsjaZy9nmpsU8jmLMCRizJVdqNy",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_4",
+      "pda": "BQSfqopagqT8DkAAoscJuFneEtLoxdZa6mwaPwuUXZRG",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_5",
+      "pda": "55RRW8cPJfEJTuJW68mmzf9Bs7mEB2U553M4RSmrdMgh",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_6",
+      "pda": "2Fj9wNozLzsMbFWmjhapUUVJuafkNWAWx4KPs97nZVC5",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_7",
+      "pda": "DrRk4kgc2VxtQWUzt1jAnyQEQB2Yup4w42uiCqsnLEsn",
+      "exists": false
+    },
+    {
+      "sku": "date_liquid_month_8",
+      "pda": "8fSsKc1Ym2z3D7tpaAUnx9ywKSGW2Nn1cvQgaLoUJgic",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_1",
+      "pda": "GTHCiwnZUkzdWfsKC6gzoDVVtd3k8Y2HUe1VPsKU6FKS",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_2",
+      "pda": "6qdkbktjhgjuzG1hNprB2nYXPPaXZPoWdV9ztcrnq3ni",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_3",
+      "pda": "BKyxP6Xi4NZcDNEYXXKR4THXhSspjRJRiMCWr6mpG4c1",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_4",
+      "pda": "5JLhKKr8hHGUnpHjcFYK7hRL5dEbXzNCfnwtt293LAm5",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_5",
+      "pda": "AMWTtwiJA7NMFnG4q8Xcvx7ei4Vt2oRsYmL5pH7GHyuz",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_6",
+      "pda": "CfEdrzPDSgnrNFMZQmiqR3MtEHgo8PSieTBvuTtVN4AN",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_7",
+      "pda": "9yXKPnCQLdW4YSjvTyW42dNWDgx3unYgW6JQuEuqDd7x",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_day_8",
+      "pda": "2Kz19EAkN4wJPbU5EFXQ7PguKzEqJVhyMTQExg3esuHL",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_1",
+      "pda": "FdQZqXwW6QcRc4tamUDxEhD1HYZ8yMhddrhqv22HQabH",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_2",
+      "pda": "GgWjheeQNbuEqDgxqsvMzT823SWewaNpjCVpwmVZb8js",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_3",
+      "pda": "39bqJZ37ySAJKqerksvp7jBKkUHYxe4i12hHNzXsjnxo",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_4",
+      "pda": "FVLMj9yGEv5cz8ajAtp6FQAc6A6UptaU7Fdt8N2GDeoj",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_5",
+      "pda": "GS8yYKvtdYpiW2dqyT8veSkmNCvbSwToXcESRna5LRuz",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_6",
+      "pda": "3A4Voup2s2ibsMzhsK5ytW6Vvh5sGNru1AnCMGH8vGe5",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_7",
+      "pda": "2dseqcs7XFQAEeZajwCTkiZci59Tzpj2HW4o1a4fqxam",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_week_8",
+      "pda": "BsmsDqGQi6ncyZY1rtHwsfMsweWALbr71hHss12WAff2",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_1",
+      "pda": "549goXfR4DdqPDVFGXkTULo888eFMTnua3n4tfUHe8ty",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_2",
+      "pda": "Gn8yEeCsrEecZiN7SERxReKtF4edGqYQuEPXib489W8e",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_3",
+      "pda": "Egm9gEQKmt6V4iDYQ6vU9c1iypsHZiuo8yAnXFM18UMq",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_4",
+      "pda": "BnGiA8RgPtJMywqJqXTB1KwN4hCDyzxTJdrZZTMkLrT6",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_5",
+      "pda": "7MXiCLCqyiBxoeLR9yi3trBCo6nZDVg53JvWrVtv2bFd",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_6",
+      "pda": "61ZVryfCxLLGBkVFJ82WKT8J4PQC3Y6V6fWrPN6w5dHK",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_7",
+      "pda": "BLDSauSkkMozwr7sR48TUuam5h6mMY4GF4BXRegJ7ePD",
+      "exists": false
+    },
+    {
+      "sku": "date_terminal_month_8",
+      "pda": "9MDwM3LaeCNiA6CdH5fjSRtiJYETCUSBMACCgkcCJx5K",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_1",
+      "pda": "DLigN3XPR1J3CquzxyhoEd7sc4D1Y3wiXdkhC8ojidbU",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_2",
+      "pda": "6bR114caPYnhphQxFCFyjYzbKGWddvPH985GbGyDhPDy",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_3",
+      "pda": "9WRvqSgiA9EUcVU2G8EMSfJzZfi1TUU7wkEgvgPfaPbE",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_4",
+      "pda": "29DdysQ6JfeQLnh56nSioVp5au7qQMHTG9GkhWMNaoGc",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_5",
+      "pda": "48NKuqfxABu9VLHhEffpEFN67dzY6dRggZDtGpYs1S1R",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_6",
+      "pda": "8aKLDwhgpTeerM859vMvUEL3trji9SPFPcFPzy89jFfD",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_7",
+      "pda": "2dLEcie42vApAWD7bmHrpkxQHHpGdDx7fQ8i3hcKsHmu",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_day_8",
+      "pda": "HzgpJUmS51QgUBXfgua1hKsZx4CPgtYG8qUzZbrafvau",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_1",
+      "pda": "2SyiWnA71rj7dwWorbkSdUK8CTbCSugJaHqe5hQ1w2Ut",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_2",
+      "pda": "5k5nZiaiH8YJL8y8PgoPjUXh5MmWbbztgdPpBV71xRXc",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_3",
+      "pda": "7v63XYytmkMUffphZJ3oJFjG42jffJ7s7sZmbtdTpAE8",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_4",
+      "pda": "C5s1b2r4VrijEreiTiB8d1fZ4tMBKjShrLivtpnCr51K",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_5",
+      "pda": "66xZLAsvrRc2tW1EWyzfa5BthLrvA1YBzLGmcB39hw53",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_6",
+      "pda": "6eWxSvephyHCHX5hjhDefJojqkJkjn7w4AHU9bHw44kx",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_7",
+      "pda": "2VYjnrB6gRDt7yHA69zoN2em2ns1sn6AecsPLg2J2SaA",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_week_8",
+      "pda": "BHPJQsHfA5ieh2WJyednJaXS32D6nYnxVSQ2gPWhfRX8",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_1",
+      "pda": "EZRUQ8CP7WCqmfUNRzxQCmx9oKw3FuUBC1z6LPSAcUhn",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_2",
+      "pda": "Gh4sAJ8NcEBbhA3T22RzPtEsrYEwSQfXstvXCYTExp3C",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_3",
+      "pda": "C8Dwz5q8Sc3vAvLTYamKXfrCfVh7zUyra6wnTDqTAkq9",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_4",
+      "pda": "8122WAyxVoYJ2ukRijoPY9tFNdggw78Y9yPAH46e3WGq",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_5",
+      "pda": "4dtAjRqUFuFdQFafLaVRDcnPMMqk7zaU2WzXYZx9SNZG",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_6",
+      "pda": "14RcHAy8RrRL4wZTuodeWKS4twjVfStZsP1pXnVu1vg2",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_7",
+      "pda": "Ct6Nz5V271e69BN637iZJ5DuHmAXTvy6aF84gmefqhk7",
+      "exists": false
+    },
+    {
+      "sku": "date_eink_month_8",
+      "pda": "GQUoudxsSARqAuoobFScM5iDMzrnKHfNJdn7VjDWPp7U",
+      "exists": false
+    }
+  ]
+}

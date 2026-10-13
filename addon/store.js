@@ -7,25 +7,37 @@
 
   function createStoreController(opts) {
     var C = opts.config, storage = opts.storage;
-    var owned = [], applied = { theme: null, icons: null };
+    var owned = [], applied = { theme: null, icons: null, clock: null }, subscribers = new Set(), lastError = null, writeQueue = Promise.resolve(), appliedRevision = 0;
     function kindOf(sku) { var i = C.CATALOG.find(function (x) { return x.sku === sku; }); return i ? i.kind : null; }
+    function expanded() {
+      var all = owned.slice();
+      C.CATALOG.forEach(function (item) {
+        if (owned.indexOf(item.sku) !== -1 && Array.isArray(item.includes)) item.includes.forEach(function (sku) {
+          if (C.CATALOG.some(function (x) { return x.sku === sku; }) && all.indexOf(sku) === -1) all.push(sku);
+        });
+      });
+      return all;
+    }
     function effective() {
+      var all = expanded();
       return {
-        theme: applied.theme && L.canApply(applied.theme, owned) ? applied.theme : null,
-        icons: applied.icons && L.canApply(applied.icons, owned) ? applied.icons : null,
+        theme: kindOf(applied.theme) === 'theme' && L.canApply(applied.theme, all) ? applied.theme : null,
+        icons: kindOf(applied.icons) === 'icons' && L.canApply(applied.icons, all) ? applied.icons : null,
+        clock: kindOf(applied.clock) === 'clock' && L.canApply(applied.clock, all) ? applied.clock : null,
         supporter: owned.indexOf('supporter') !== -1
       };
     }
-    function state() { return { owned: owned, applied: applied, items: L.storeItems(C.CATALOG, owned), effective: effective() }; }
-    function emit() { if (opts.onChange) opts.onChange(state()); }
+    function state() { return { owned: owned.slice(), applied: Object.assign({}, applied), items: L.storeItems(C.CATALOG, expanded()), effective: effective() }; }
+    function emit() { var s = state(); if (opts.onChange) opts.onChange(s); subscribers.forEach(function (fn) { fn(s); }); }
     function ingest(obj) {
       if (C.STORAGE_OWNED in obj) owned = L.normalizeOwned(obj[C.STORAGE_OWNED]);
       if (C.STORAGE_APPLIED in obj) {
+        appliedRevision++;
         var a = obj[C.STORAGE_APPLIED] || {};
-        applied = { theme: a.theme || null, icons: a.icons || null };
+        applied = { theme: typeof a.theme === 'string' ? a.theme : null, icons: typeof a.icons === 'string' ? a.icons : null, clock: typeof a.clock === 'string' ? a.clock : null };
       }
     }
-    var ready = storage.get([C.STORAGE_OWNED, C.STORAGE_APPLIED]).then(function (r) { ingest(r || {}); emit(); });
+    var ready = storage.get([C.STORAGE_OWNED, C.STORAGE_APPLIED]).then(function (r) { ingest(r || {}); emit(); }).catch(function (error) { lastError = error; emit(); });
     storage.onChanged(function (changes, area) {
       if (area && area !== 'local') return;
       var o = {}, hit = false;
@@ -33,21 +45,31 @@
       if (hit) { ingest(o); emit(); }
     });
     return {
-      ready: ready, state: state,
+      ready: ready, state: state, lastError: function () { return lastError; },
+      subscribe: function (fn) { subscribers.add(fn); return function () { subscribers.delete(fn); }; },
       buy: function (sku) {
         var item = C.CATALOG.find(function (x) { return x.sku === sku; });
-        if (!item || L.canApply(sku, owned)) return false;
+        if (!item || L.canApply(sku, expanded())) return false;
         opts.openBridge(L.bridgeActionFor(item), sku); return true;
       },
       /* apply(sku) or apply(null, 'theme'|'icons') to reset */
       apply: function (sku, slot) {
-        slot = slot || (kindOf(sku) === 'icons' ? 'icons' : kindOf(sku) === 'theme' ? 'theme' : null);
-        if (!slot) return false;
-        if (sku && !L.canApply(sku, owned)) return false;
-        var next = { theme: applied.theme, icons: applied.icons }; next[slot] = sku || null;
-        applied = next;
-        var w = {}; w[C.STORAGE_APPLIED] = next; storage.set(w);
-        emit(); return true;
+        slot = slot || kindOf(sku);
+        var operation = writeQueue.then(async function () {
+          await ready;
+          if (['theme', 'icons', 'clock'].indexOf(slot) === -1) return false;
+          if (sku && (kindOf(sku) !== slot || !L.canApply(sku, expanded()))) return false;
+          var next = Object.assign({}, applied); next[slot] = sku || null;
+          var revision = appliedRevision, w = {}; w[C.STORAGE_APPLIED] = next;
+          try {
+            await storage.set(w);
+            // A newer storage event already supplies the current durable preference.
+            if (revision === appliedRevision) applied = next;
+            lastError = null; emit(); return true;
+          } catch (error) { lastError = error; emit(); return false; }
+        });
+        writeQueue = operation.then(function () {}, function () {});
+        return operation;
       }
     };
   }
@@ -61,9 +83,9 @@
     var hasChrome = root.chrome && root.chrome.storage && root.chrome.storage.local;
     var mem = {}, ls = [];
     return {
-      get: function (keys) { return hasChrome ? new Promise(function (res) { root.chrome.storage.local.get(keys, res); }) : Promise.resolve(mem); },
+      get: function (keys) { return hasChrome ? new Promise(function (res, reject) { root.chrome.storage.local.get(keys, function (value) { var error = root.chrome.runtime && root.chrome.runtime.lastError; if (error) reject(new Error(error.message)); else res(value); }); }) : Promise.resolve(mem); },
       set: function (obj) {
-        if (hasChrome) return new Promise(function (res) { root.chrome.storage.local.set(obj, res); });
+        if (hasChrome) return new Promise(function (res, reject) { root.chrome.storage.local.set(obj, function () { var error = root.chrome.runtime && root.chrome.runtime.lastError; if (error) reject(new Error(error.message)); else res(); }); });
         var ch = {}; for (var k in obj) { ch[k] = { newValue: obj[k] }; mem[k] = obj[k]; } ls.forEach(function (f) { f(ch, 'local'); }); return Promise.resolve();
       },
       onChanged: function (fn) { if (hasChrome) root.chrome.storage.onChanged.addListener(fn); else ls.push(fn); }
@@ -77,8 +99,9 @@
   var surfaces = new Set();
   function applyToDocument(s) {
     var de = document.documentElement, e = s.effective;
-    ['theme_aurora', 'theme_dune'].forEach(function (t) { de.classList.toggle('hs-' + t.replace('_', '-'), e.theme === t); });
-    de.classList.toggle('hs-icons-glass', e.icons === 'icons_glass');
+    ['theme_aurora', 'theme_dune', 'theme_midnight'].forEach(function (t) { de.classList.toggle('hs-' + t.replace('_', '-'), e.theme === t); });
+    ['glass', 'mono'].forEach(function (pack) { de.classList.toggle('hs-icons-' + pack, e.icons === 'icons_' + pack); });
+    de.classList.toggle('hs-clock-orbit', e.clock === 'clock_orbit');
     de.classList.toggle('hs-supporter', e.supporter);
     var layer = document.getElementById('hs-theme-layer');
     if (e.theme && !layer && document.body) {
@@ -95,18 +118,23 @@
     var el = document.createElement('div');
     el.className = 'hs-widget hs-store';
     var cols = 2, rows = 2;
+    function wireGallery() {
+      var b = el.querySelector('[data-store-gallery]');
+      if (b) b.addEventListener('click', function () { if (root.HearthStoreGallery) root.HearthStoreGallery.open(b); });
+    }
     function render() {
       var s = controller.state(), fam = L.family(cols, rows), esc = L.escapeHtml;
-      var ownedCount = s.items.filter(function (i) { return i.owned; }).length;
+      var counts = root.HearthStoreCatalog ? root.HearthStoreCatalog.ownedCount(s.owned) : { owned: s.items.filter(function (i) { return i.owned; }).length, total: s.items.length };
+      var ownedCount = counts.owned;
       el.dataset.family = fam;
       if (fam === 'small') {
-        el.innerHTML = '<div class="hs-center"><div class="hs-hero" style="font-size:' + L.heroPx(cols, rows) + 'px">' + ownedCount + '/' + s.items.length +
-          '</div><div class="hs-label">Store · owned</div>' + (s.effective.supporter ? '<div class="hs-badge">★ Supporter</div>' : '') + '</div>';
-        el.querySelector('.hs-center').addEventListener('click', function () { openBridge('signin'); });
+        el.innerHTML = '<div class="hs-center"><div class="hs-hero" style="font-size:' + L.heroPx(cols, rows) + 'px">' + ownedCount + '/' + counts.total +
+          '</div><div class="hs-label">Hearth Store</div><button type="button" class="hs-btn" data-store-gallery>See all →</button>' + (s.effective.supporter ? '<div class="hs-badge">★ Supporter</div>' : '') + '</div>';
+        wireGallery();
         return;
       }
-      var rowsHtml = s.items.map(function (i) {
-        var active = s.effective.theme === i.sku || s.effective.icons === i.sku;
+      var rowsHtml = s.items.filter(function(i) { return ['theme_aurora', 'theme_dune', 'icons_glass'].indexOf(i.sku) !== -1; }).map(function (i) {
+        var active = s.effective.theme === i.sku || s.effective.icons === i.sku || s.effective.clock === i.sku;
         var btn;
         if (!i.owned) btn = '<button type="button" class="hs-btn hs-buy" data-sku="' + esc(i.sku) + '">' + (i.method === 'usdc' ? 'Support' : 'Buy') + ' $' + i.price.toFixed(2) + '</button>';
         else if (i.kind === 'badge') btn = '<span class="hs-pill">★ Owned</span>';
@@ -114,7 +142,8 @@
         return '<li class="hs-row ' + (i.owned ? 'is-owned' : 'is-locked') + '"><span class="hs-swatch hs-sw-' + esc(i.sku) + '"></span><span class="hs-row-main"><b>' + esc(i.label) +
           '</b>' + (fam === 'large' ? '<small>' + esc(i.desc) + '</small>' : '') + '</span>' + (i.owned ? '' : '<span class="hs-lock" aria-label="locked">\u{1F512}</span>') + btn + '</li>';
       }).join('');
-      el.innerHTML = '<div class="hs-head"><span>Hearth Store</span><span class="hs-acc">' + ownedCount + ' owned</span></div><ul class="hs-list">' + rowsHtml + '</ul>';
+      el.innerHTML = '<div class="hs-head"><span title="Demo catalog on Solana devnet">Hearth Store</span><button type="button" class="hs-btn" data-store-gallery>See all →</button></div><ul class="hs-list">' + rowsHtml + '</ul>';
+      wireGallery();
       el.querySelectorAll('.hs-buy').forEach(function (b) { b.addEventListener('click', function () { controller.buy(b.dataset.sku); }); });
       el.querySelectorAll('[data-apply]').forEach(function (b) {
         b.addEventListener('click', function () {

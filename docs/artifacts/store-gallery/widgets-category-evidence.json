@@ -1,0 +1,98 @@
+[
+  {
+    "category": "all",
+    "creatorText": false,
+    "height": 855,
+    "imageCount": 19,
+    "items": [
+      "widget_clock",
+      "widget_countdown",
+      "widget_weather",
+      "widget_search",
+      "widget_calendar",
+      "widget_pin",
+      "widget_pomodoro",
+      "widget_timer",
+      "widget_tasksLite",
+      "widget_tasks",
+      "widget_habits",
+      "widget_media",
+      "widget_appgrid",
+      "widget_youtube",
+      "widget_photoframe",
+      "widget_solanaWallet",
+      "widget_solPrice",
+      "widget_hearthStore",
+      "widget_focusBoard"
+    ],
+    "width": 1171
+  },
+  {
+    "category": "clocks",
+    "creatorText": false,
+    "height": 855,
+    "imageCount": 1,
+    "items": [
+      "widget_clock"
+    ],
+    "width": 1171
+  },
+  {
+    "category": "timer",
+    "creatorText": false,
+    "height": 855,
+    "imageCount": 3,
+    "items": [
+      "widget_countdown",
+      "widget_pomodoro",
+      "widget_timer"
+    ],
+    "width": 1171
+  },
+  {
+    "category": "productivity",
+    "creatorText": false,
+    "height": 855,
+    "imageCount": 6,
+    "items": [
+      "widget_pin",
+      "widget_pomodoro",
+      "widget_tasksLite",
+      "widget_tasks",
+      "widget_habits",
+      "widget_focusBoard"
+    ],
+    "width": 1171
+  },
+  {
+    "category": "time",
+    "creatorText": false,
+    "height": 855,
+    "imageCount": 5,
+    "items": [
+      "widget_clock",
+      "widget_countdown",
+      "widget_weather",
+      "widget_calendar",
+      "widget_timer"
+    ],
+    "width": 1171
+  },
+  {
+    "category": "utilities",
+    "creatorText": false,
+    "height": 855,
+    "imageCount": 8,
+    "items": [
+      "widget_search",
+      "widget_media",
+      "widget_appgrid",
+      "widget_youtube",
+      "widget_photoframe",
+      "widget_solanaWallet",
+      "widget_solPrice",
+      "widget_hearthStore"
+    ],
+    "width": 1171
+  }
+]

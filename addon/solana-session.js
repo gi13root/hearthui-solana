@@ -7,7 +7,10 @@
   var SESSION_KEY = 'hearth.solana.session', OWNED_KEY = 'hearth.solana.owned';
   var ALLOWED_ORIGINS = ['https://heartui.ipfps.org', 'http://localhost:3434'];
   var BRIDGE_URL = 'https://heartui.ipfps.org/bridge/';
-  var SKU_METHOD = { supporter: 'usdc', theme_aurora: 'pass', theme_dune: 'pass', icons_glass: 'pass' };
+  var SKU_METHOD = { supporter: 'usdc', theme_aurora: 'pass', theme_dune: 'pass', icons_glass: 'pass', theme_midnight: 'pass', icons_mono: 'pass', clock_orbit: 'pass', bundle_focus: 'pass' };
+  var dates = root.HearthDateConcepts || (typeof require === 'function' ? require('./store-date-concepts.js') : null);
+  var dateSkus = Object.create(null);
+  if (dates) dates.items.forEach(function (item) { dateSkus[item.sku] = true; SKU_METHOD[item.sku] = 'pass'; });
   var B58 = /^[1-9A-HJ-NP-Za-km-z]+$/;
 
   function originOf(sender) {
@@ -51,7 +54,7 @@
     var openTab = deps.open || function (url) {
       if (chromeApi && chromeApi.tabs && chromeApi.tabs.create) chromeApi.tabs.create({ url: url }); else root.open(url, '_blank', 'noopener');
     };
-    var listeners = [], lastError = null;
+    var listeners = [], lastError = null, sessionEpoch = 0, refreshId = 0;
 
     function get(key) { return new Promise(function (r) { chromeApi.storage.local.get([key], function (o) { r(o && o[key]); }); }); }
     function set(obj) { return new Promise(function (r) { chromeApi.storage.local.set(obj, function () { r(); }); }); }
@@ -60,7 +63,17 @@
 
     async function getSession() { return (await get(SESSION_KEY)) || null; }
     // Stored shape: { skus: string[], items: entitlement[] } (A2 store reads `skus`).
-    function normOwned(v) { if (Array.isArray(v)) return v.map(function (x) { return typeof x === 'string' ? { sku: x } : x; }); return (v && v.items) || (v && v.skus ? v.skus.map(function (x) { return { sku: x }; }) : []); }
+    function normOwned(v) {
+      var list = Array.isArray(v) ? v : v && Array.isArray(v.items) ? v.items : v && Array.isArray(v.skus) ? v.skus : [];
+      var seen = Object.create(null), out = [];
+      list.forEach(function (value) {
+        var item = typeof value === 'string' ? { sku: value } : value;
+        if (!item || typeof item !== 'object' || !Object.prototype.hasOwnProperty.call(SKU_METHOD, item.sku) || seen[item.sku]) return;
+        if (item.owned === false || (item.status !== undefined && item.status !== 'confirmed')) return;
+        seen[item.sku] = true; out.push(Object.assign({}, item));
+      });
+      return out;
+    }
     function packOwned(items) { var o = {}; o[OWNED_KEY] = { skus: items.map(function (x) { return x.sku; }), items: items }; return o; }
     async function getOwned() { return normOwned(await get(OWNED_KEY)); }
     async function ipfpsFetch(path, init) { return fetchImpl(ipfpsBase() + path, init); }
@@ -81,31 +94,54 @@
 
     // Source of truth order: IPFPS owned -> on-chain PDA -> keep last verified cache (never local-only grants).
     async function refreshOwned() {
+      var id = ++refreshId, epoch = sessionEpoch;
       var s = await getSession(); if (!s) return getOwned();
+      var refreshError = null;
+      async function current() {
+        var now = await getSession();
+        return id === refreshId && epoch === sessionEpoch && now && now.address === s.address && now.jwt === s.jwt && now.at === s.at;
+      }
+      async function finish(items, write) {
+        if (!await current()) return getOwned();
+        lastError = refreshError;
+        if (write) { await set(packOwned(items)); }
+        if (id !== refreshId || epoch !== sessionEpoch) return getOwned();
+        if (write) emit('owned');
+        if (refreshError) emit('error');
+        return items;
+      }
       if (s.jwt && fetchImpl) {
         try {
           var r = await fetchImpl(ipfpsBase() + '/api/hearth/owned', { headers: { 'Init-Data': s.jwt } });
-          if (r.ok) { var j = await r.json(); if (Array.isArray(j.owned)) { await set(packOwned(j.owned)); emit('owned'); return j.owned; } }
-        } catch (e) { lastError = e; }
+          if (r.ok) { var j = await r.json(); if (Array.isArray(j.owned)) return finish(normOwned(j.owned), true); }
+        } catch (e) { refreshError = e; }
       }
-      var check = deps.passCheck || defaultPassCheck, prev = await getOwned(), out = [], anyKnown = false;
+      var check = deps.passCheck || defaultPassCheck, prev = await getOwned(), out = [], anyKnown = false, allKnown = true, passError = null;
       for (var sku in SKU_METHOD) {
         if (SKU_METHOD[sku] !== 'pass') continue;
-        var has = null; try { has = await check(s.address, sku); } catch (e) { lastError = e; }
-        if (has === null || has === undefined) { prev.filter(function (o) { return o.sku === sku; }).forEach(function (o) { out.push(o); }); continue; }
+        var ready = deps.readySkus || (root.HearthSolanaConfig && root.HearthSolanaConfig.READY_PASS_SKUS) || [];
+        if (dateSkus[sku] && !prev.some(function (entry) { return entry.sku === sku; }) && !(Array.isArray(ready) && ready.indexOf(sku) !== -1)) continue;
+        if (!await current()) return getOwned();
+        var has = null; try { has = await check(s.address, sku); } catch (e) { refreshError = e; passError = e; }
+        if (has !== true && has !== false) { allKnown = false; prev.filter(function (o) { return o.sku === sku; }).forEach(function (o) { out.push(o); }); continue; }
         anyKnown = true;
         if (has) out.push({ sku: sku, source: 'pass', verified: 'onchain' });
       }
       prev.filter(function (o) { return SKU_METHOD[o.sku] === 'usdc'; }).forEach(function (o) { out.push(o); }); // usdc only verifiable by IPFPS
-      if (anyKnown) { await set(packOwned(out)); emit('owned'); }
-      return anyKnown ? out : prev;
+      if (allKnown && !passError) refreshError = null;
+      return finish(anyKnown ? out : prev, anyKnown);
     }
 
     async function handle(msg, sender) {
       if (!validateSender(sender)) return { ok: false, error: 'bad_sender' };
       var v = validateMessage(msg); if (!v.ok) return v;
       if (msg.type === 'session') {
-        await set({ [SESSION_KEY]: { address: msg.address, jwt: msg.jwt, network: msg.network, at: Date.now() } });
+        sessionEpoch++;
+        var previous = await getSession();
+        var update = { [SESSION_KEY]: { address: msg.address, jwt: msg.jwt, network: msg.network, at: Date.now() } };
+        if (!previous || previous.address !== msg.address) update[OWNED_KEY] = { skus: [], items: [] };
+        lastError = null;
+        await set(update);
         emit('session'); refreshOwned().catch(function () {});
       } else if (msg.type === 'purchase') {
         // Optimistic entry from a confirmed tx; replaced by IPFPS/on-chain truth on next refreshOwned().
@@ -124,12 +160,12 @@
         return true; // async response
       });
       if (chromeApi.storage && chromeApi.storage.onChanged) chromeApi.storage.onChanged.addListener(function (ch, area) {
-        if (area === 'local' && (ch[SESSION_KEY] || ch[OWNED_KEY])) emit(ch[SESSION_KEY] ? 'session' : 'owned');
+        if (area === 'local' && (ch[SESSION_KEY] || ch[OWNED_KEY])) { if (ch[SESSION_KEY]) sessionEpoch++; emit(ch[SESSION_KEY] ? 'session' : 'owned'); }
       });
       return true;
     }
 
-    async function signOut() { await new Promise(function (r) { chromeApi.storage.local.remove([SESSION_KEY, OWNED_KEY], r); }); emit('session'); }
+    async function signOut() { sessionEpoch++; lastError = null; await new Promise(function (r) { chromeApi.storage.local.remove([SESSION_KEY, OWNED_KEY], r); }); emit('session'); }
     function onChange(fn) { listeners.push(fn); return function () { listeners = listeners.filter(function (f) { return f !== fn; }); }; }
 
     return { install: install, handle: handle, getSession: getSession, getOwned: getOwned, isOwned: isOwned, openBridge: openBridge,

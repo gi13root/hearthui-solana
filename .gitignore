@@ -7,3 +7,4 @@ target/
 program/target/
 program/node_modules/
 program/test-ledger/
+.DS_Store
