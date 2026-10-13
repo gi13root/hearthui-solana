@@ -15,11 +15,13 @@ program `hearth_pass` — with ownership verified straight from the chain, no se
 
 ## Install the demo (devnet)
 
-1. Download `hearthui-solana-demo.zip` from **[Releases](../../releases)** and unzip it.
+1. Get `hearthui-solana-demo.zip` — the demo build is **shared with judges on request** (it bundles the proprietary HearthUI base app, so it is not published here). Unzip it.
 2. Open `chrome://extensions`, switch on **Developer mode**, click **Load unpacked**, pick the unzipped folder.
 3. Open a new tab. Extension ID is fixed: `pbacffgkgjlkbnafpmakmmppcikgegpf`.
 4. Have **Phantom** set to **devnet** with some devnet SOL and devnet USDC
    (mint `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`).
+
+The wallet bridge used by the demo is served from this repo via GitHub Pages: https://gi13root.github.io/hearthui-solana/bridge/
 
 The demo is a separate unpacked build. The Chrome Web Store version of HearthUI contains **no** Solana code.
 
